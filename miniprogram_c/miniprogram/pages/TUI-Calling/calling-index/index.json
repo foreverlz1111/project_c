@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "会话准备",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#000000",
+  "navigationStyle": "custom",
+  
+  "disableScroll": true
+}

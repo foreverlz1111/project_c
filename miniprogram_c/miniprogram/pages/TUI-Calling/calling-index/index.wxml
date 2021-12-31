@@ -1,0 +1,37 @@
+
+<!--room.wxml-->
+<view class="container">
+  <!-- <view class='title' style='padding-top:{{(headerHeight + statusBarHeight)/2 - 12}}px'> -->
+  <!-- <view class='title'>TRTC</view> -->
+
+<view class="title">
+    <image class="btn-goback" src="../../../static/images/back.png" bind:tap="onBack" />
+    <text>准备会话</text>
+  </view> 
+
+   <!-- <view class='tips'>
+    <text>以下将展示小程序实时音视频能力，由腾讯云提供技术支持</text>
+  </view> -->
+  
+  <view class='guide-box'>
+    <view class="single-box" >
+      <image class="icon" mode="cover" src="{{userInfo.avatarUrl}}"></image>
+      <view class="single-content"><view class="label">你好，{{userInfo.nickName}}</view>
+      </view>
+    </view><view class="box">
+      <view class="list" >
+        <view class="list-item">
+          <label class="list-item-label">Any infomation could be list behind</label>
+          <label class="list-item-label">Customer privacy and term s of user</label>
+          </view>
+          </view>
+          </view>
+
+    <view class='video'>
+            <button hover-class="videoBtnt" class="videoBtn"  >
+            开始视频 </button>
+      </view>
+
+  </view>
+</view>
+<tabBar selected="{{0}}" />
