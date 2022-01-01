@@ -124,7 +124,6 @@ Page({
     if (!this.data.userID) {
       return;
     }
-
     wx.$TUIKit.getUserProfile({ userIDList: [this.data.userID] }).then((imResponse) => {
       this.setData({
         remoteUserInfo: { ...imResponse.data[0] },

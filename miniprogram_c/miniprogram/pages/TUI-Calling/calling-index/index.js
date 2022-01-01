@@ -1,51 +1,112 @@
 // room.js
 // eslint-disable-next-line no-undef
+import { genTestUserSig } from '../../../debug/GenerateTestUserSig';
+// eslint-disable-next-line no-undef
+const app = getApp();
+
 Page({
-  userInfo: {},
-  hasUserInfo: false,
+
   data: {
-    entryInfos: [
-      { icon: 'https://web.sdk.qcloud.com/component/miniApp/resources/audio-card.png', title: '语音通话', desc: '丢包率70%仍可正常语音通话', navigateTo: '../calling-room/room?type=1' },
-      { icon: 'https://web.sdk.qcloud.com/component/miniApp/resources/video-card.png', title: '视频通话', desc: '丢包率50%仍可正常视频通话', navigateTo: '../calling-room/room?type=2' },
-    ],
-    privateAgree:false
+    userInfo: {},
+    hasUserInfo: false,
+    privateAgree: true,
+    config: {
+      sdkAppID: app.globalData.SDKAppID,
+      userID: app.globalData.userID,
+      userSig: app.globalData.userSig,
+      type: 1,
+      tim: null,
+    },
+    localUserInfo: null,
+    remoteUserInfo: {},
+    userID: '',
+    searchResultShow:''
   },
 
   onLoad() {
-    this.userInfo =  wx.getStorageSync("userinfosync");
-    console.log(this.userInfo);
-    this.hasUserInfo = wx.getStorageSync('hasuserinfo'); 
-    console.log(this.hasUserInfo);
-  },
-  handleEntry(e) {
-    const url = this.data.entryInfos[e.currentTarget.id].navigateTo;
-    wx.navigateTo({
-      url,
+    this.setData({
+      userInfo: wx.getStorageSync("userinfosync"),
+      hasUserInfo: wx.getStorageSync('hasuserinfo'),
+    })
+    // console.log(this.userInfo.avatarUrl);
+    // console.log(this.hasUserInfo);
+    
+    const { config } = this.data;
+    config.sdkAppID = app.globalData.SDKAppID;
+    config.userID = app.globalData.userInfo.userID;
+    config.userSig = genTestUserSig(config.userID).userSig;
+    config.type = 2;// 视频聊天 参数2
+    //config.tim = wx.$TUIKit;
+    this.setData({
+      config
+    }, () => {
+      this.TRTCCalling = this.selectComponent('#TRTCCalling-component');
+      console.log(" this.TRTCCalling == "+this.TRTCCalling);
+      console.log("config sdkAppID== " + config.sdkAppID);
+      console.log("config userID== " + config.userID);
+      console.log("config type== " + config.type);
+      console.log("config tim== " + config.tim);
+      //config.tim is null
+     this.TRTCCalling.init();
     });
+    wx.$TUIKit.getUserProfile({ userIDList: ['user0'] }).then((imResponse) => {
+      console.log(imResponse.data[0]);
+      this.setData({
+        remoteUserInfo: { ...imResponse.data[0] },
+        searchResultShow: true,
+      });
+    });
+  },
+  // handleEntry(e) {
+  //   const url = this.data.entryInfos[e.currentTarget.id].navigateTo;
+  //   wx.navigateTo({
+  //     url,
+  //   });
+  // },
+  linkTo() {
+    const url = 'https://www.aliyun.com'
+    wx.navigateTo({
+      url: `../../TUI-User-Center/webview/webview?url=${url}&nav=AliCloud`,
+    })
   },
 
   onShow() {
-    
+    //console.log("appid"+ app.globalData.userInfo.userID);
+    //console.log("sig"+ app.globalData.userInfo.userSig);
+
   },
   // 返回
   onBack() {
     wx.showModal({
-      title:'确定返回首页吗？',
+      title: '确定返回首页吗？',
       cancelColor: 'cancelColor',
-      success :function(res){
-        if(res.confirm){
-           wx.redirectTo({
+      success: function (res) {
+        if (res.confirm) {
+          wx.redirectTo({
             url: '../../TUI-Login/login',
-             })
-        }
-        else if(res.cancel){
+          })
+        } else if (res.cancel) {
           wx.showToast({
             title: '无操作',
-            icon:'none',
+            icon: 'none',
             duration: 3000,
           })
         }
       }
     })
   },
+  onAgreePrivateProtocol() {
+    this.setData({
+      privateAgree: !this.data.privateAgree,
+    })
+  },
+onUpload(){
+    this.TRTCCalling.destroyed();
+},
+  call() {
+    //console.log("console.log(this.config.userID) ==" + this.config.userID);
+    console.log("console.log(this.data.remoteUserInfo.userID) ==" +this.data.remoteUserInfo.userID);
+    this.TRTCCalling.call({ userID: this.data.remoteUserInfo.userID, type: 2 });
+  },
+
 });

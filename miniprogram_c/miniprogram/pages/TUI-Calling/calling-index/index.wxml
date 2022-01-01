@@ -1,36 +1,51 @@
-
 <!--room.wxml-->
 <view class="container">
+  <TUI-calling 
+      id="TRTCCalling-component"
+      config="{{config}}"
+      backgroundMute="{{true}}"
+    ></TUI-calling>
+
   <!-- <view class='title' style='padding-top:{{(headerHeight + statusBarHeight)/2 - 12}}px'> -->
   <!-- <view class='title'>TRTC</view> -->
 
-<view class="title">
+  <view class="title">
     <image class="btn-goback" src="../../../static/images/back.png" bind:tap="onBack" />
     <text>准备会话</text>
-  </view> 
+  </view>
 
-   <!-- <view class='tips'>
+  <!-- <view class='tips'>
     <text>以下将展示小程序实时音视频能力，由腾讯云提供技术支持</text>
   </view> -->
-  
+
   <view class='guide-box'>
-    <view class="single-box" >
+    <view class="single-box">
       <image class="icon" mode="cover" src="{{userInfo.avatarUrl}}"></image>
-      <view class="single-content"><view class="label">你好，{{userInfo.nickName}}</view>
+      <view class="single-content">
+        <view class="label">你好，{{userInfo.nickName}}</view>
       </view>
-    </view><view class="box">
-      <view class="list" >
+    </view>
+    <view class="box">
+      <view class="list">
         <view class="list-item">
-          <label class="list-item-label">Any infomation could be list behind</label>
-          <label class="list-item-label">Customer privacy and term s of user</label>
-          </view>
-          </view>
-          </view>
+          <label class="list-item-label">“1这是一段列表内的文本”</label><text class="link" bindtap="linkTo">“跳转链接”</text>
+          <label class="list-item-label">“2这是一段列表内的文本”</label>
+        </view>
+      </view>
+      <view class="private-protocol-box" bindtap="onAgreePrivateProtocol">
+        <view class="private-protocol-switch">
+          <image wx:if="{{privateAgree}}" src="../../../static/images/cursor-select-circle.png" lazy-load="true" />
+          <image wx:else src="../../../static/images/select.png" lazy-load="true" />
+        </view>
+        <view class="text-box"><text>我已阅读并同意</text><text class="link" bindtap="linkTo">《隐私条例》</text><text>和</text><text class="link" bindtap="linkTo">《用户协议》</text>
+        </view>
+      </view>
+    </view>
 
     <view class='video'>
-            <button hover-class="videoBtnt" class="videoBtn"  >
-            开始视频 </button>
-      </view>
+      <button disabled="{{!privateAgree}}" bindtap="call" hover-class="videoBtnt" class="videoBtn">
+        开始视频 </button>
+    </view>
 
   </view>
 </view>
