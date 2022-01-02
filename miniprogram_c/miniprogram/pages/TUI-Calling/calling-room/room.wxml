@@ -1,12 +1,7 @@
-
 <view class="" hover-class="none" hover-stop-propagation="false">
-    <TUI-calling 
-      id="TRTCCalling-component"
-      config="{{config}}"
-      backgroundMute="{{true}}"
-    ></TUI-calling>
+  <TUI-calling id="TRTCCalling-component" config="{{config}}" backgroundMute="{{true}}"></TUI-calling>
 
-    <view class="trtc-calling-index">
+  <view class="trtc-calling-index">
     <view class="trtc-calling-index-title">
       <image class="btn-goback" src="../../../static/images/back.png" bind:tap="onBack" />
       <view class="trtc-calling-index-title title">{{title}}</view>
@@ -21,14 +16,14 @@
           </view> -->
           <input class="input-search-user" maxlength="11" type="number" id="{{123}}" bindinput="userIDToSearchInput" placeholder="搜索用户ID" />
         </view>
-        <view class="btn-search" bindtap="searchUser" >搜索</view>
+        <view class="btn-search" bindtap="searchUser">搜索</view>
       </view>
       <view class="search-selfInfo">
         <label class="search-selfInfo-label">您的用户ID</label>
         <view class="search-selfInfo-phone">
           {{config.userID}}
         </view>
-      </view>  
+      </view>
       <view class="search-result" wx:if="{{searchResultShow}}">
         <view wx:if="{{remoteUserInfo.userID}}" class="user-to-call">
           <view class="userInfo-box">
@@ -44,7 +39,7 @@
       </view>
       <view wx:else class="search-default">
         <view class="search-default-box">
-          <image class="search-default-img" src="https://web.sdk.qcloud.com/component/miniApp/resources/search.png"  lazy-load="true" />
+          <image class="search-default-img" src="https://web.sdk.qcloud.com/component/miniApp/resources/search.png" lazy-load="true" />
           <view class="search-default-message">
             搜索添加已注册用户以发起通话
           </view>

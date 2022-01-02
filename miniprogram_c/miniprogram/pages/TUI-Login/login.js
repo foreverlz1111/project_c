@@ -25,16 +25,18 @@ Page({
     countryIndicatorStatus: false,
     headerHeight: app.globalData.headerHeight,
     statusBarHeight: app.globalData.statusBarHeight,
-    park_id: 0,
-    gate_id: 0,
-    park_name: 'null',
-    park_location: 'null',
-    park_status: false,
-    gate_style: 'null',
-    gate_name: 'null',
-    gate_status: false
+    info:[
+      { name:'车场ID',key:'park_id',value:0},
+      { name:'车场名称',key:'park_name',value:'null'}, 
+      { name:'地址',key:'park_location',value:'null'}, 
+      { name:'车场状态',key:'park_status',value:false}, 
+      { name:'车场道闸',key:'gate_id',value:0},
+      { name:'道闸类型',key:'gate_style',value:'null'},
+      { name:'道闸状态',key:'gate_status',value:true}, 
+    ],
   },
   onLoad(option) {
+    wx.$TUIKit.setLogLevel(1);
     this.setData({
       path: option.path,
     })
@@ -49,22 +51,18 @@ Page({
     }
   },
   getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    //console.log("app.globalData.userInfo.userID =="+ app.globalData.userInfo.userID);
-    //console.log("app.globalData.userInfo.userSig =="+ app.globalData.userInfo.userSig);
+    //每次通过该接口获取用户个人信息均需用户确认
     wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      desc: '选择用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
         wx.$TUIKit.login({
-          userID: app.globalData.userInfo.userID,
-          userSig: app.globalData.userInfo.userSig,
-        }).then(() => {
-        })
-          .catch(() => {
-          });
+            userID: app.globalData.userInfo.userID,
+            userSig: app.globalData.userInfo.userSig,
+          }).then(() => {})
+          .catch(() => {});
         //console.log(res)
         this.setData({
-          //微信用户的头像、昵称等信息
+            //微信用户的头像、昵称等信息
             userInfo: res.userInfo,
             hasUserInfo: true
           }),
@@ -78,36 +76,32 @@ Page({
           success() {
             wx.showToast({
               title: '请稍等',
-              icon:'loading',
-              duration:2000,
-              });
-                setTimeout(() => {
-                wx.redirectTo({
-                  url: '../TUI-Calling/calling-index/index',
-                  })
-               }, 2000);
+              icon: 'loading',
+              duration: 2000,
+            });
+            setTimeout(() => {
+              wx.redirectTo({
+                url: '../TUI-Calling/calling-index/index',
+              })
+            }, 2000);
           }
         })
       }
     })
   },
-  toIndex(){
-    wx.redirectTo({
-      url: '../TUI-Calling/calling-index/index',
-      })
-  },
   onShow() {
+   
+  },
+  // Token没过期可以利用Token登陆。无作用
+  // loginWithToken() {
+  //   wx.redirect({
+  //     url: '../TUI-Calling/calling-index/index',
+  //   })
+  // },
 
-  },
-  // Token没过期可以利用Token登陆
-  loginWithToken() {
-    // wx.redirect({
-    //   url: '../TUI-Calling/calling-index/index',
-    // })
-  },
   // 回退
   onBack() {
-
+   
   },
   // 输入userID
   bindUserIDInput(e) {
@@ -127,31 +121,6 @@ Page({
     setTokenStorage({
       userInfo: app.globalData.userInfo,
     })
-    if (this.data.path && this.data.path !== 'undefined') {
-      wx.redirectTo({
-        url: this.data.path,
-      })
-    }
     this.getUserProfile();
   },
-  // onAgreePrivateProtocol() {
-  //   this.setData({
-  //     privateAgree: !this.data.privateAgree,
-  //   })
-  // },
-  // 隐私条例
-  //   linkToPrivacyTreaty() {
-  //     const url = 'https://web.sdk.qcloud.com/document/Tencent-IM-Privacy-Protection-Guidelines.html'
-  //     wx.navigateTo({
-  //       url: `../TUI-User-Center/webview/webview?url=${url}&nav=Privacy-Protection`,
-  //     })
-  //   },
-  // 隐私条例
-  // linkToUserAgreement() {
-  //   const url = 'https://web.sdk.qcloud.com/document/Tencent-IM-User-Agreement.html'
-  //   wx.navigateTo({
-  //     url: `../TUI-User-Center/webview/webview?url=${url}&nav=User-Agreement`,
-  //   })
-  // },
-
 })

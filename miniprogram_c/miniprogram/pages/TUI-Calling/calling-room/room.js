@@ -1,4 +1,6 @@
-import { genTestUserSig } from '../../../debug/GenerateTestUserSig';
+import {
+  genTestUserSig
+} from '../../../debug/GenerateTestUserSig';
 // eslint-disable-next-line no-undef
 const app = getApp();
 // eslint-disable-next-line no-undef
@@ -31,7 +33,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const { config } = this.data;
+    const {
+      config
+    } = this.data;
     config.sdkAppID = app.globalData.SDKAppID;
     config.userID = app.globalData.userInfo.userID;
     config.userSig = genTestUserSig(config.userID).userSig;
@@ -39,7 +43,10 @@ Page({
     config.tim = wx.$TUIKit;
 
     this.setData({
-      params: { ...this.data.params, ...options },
+      params: {
+        ...this.data.params,
+        ...options
+      },
       title: config.type === 1 ? '语音通话' : '视频通话',
       config,
     }, () => {
@@ -105,7 +112,10 @@ Page({
       return;
     }
     console.log(this.data.remoteUserInfo);
-    this.TRTCCalling.call({ userID: this.data.remoteUserInfo.userID, type: ~~this.data.params.type });
+    this.TRTCCalling.call({
+      userID: this.data.remoteUserInfo.userID,
+      type: ~~this.data.params.type
+    });
   },
 
   // 搜索input
@@ -124,9 +134,13 @@ Page({
     if (!this.data.userID) {
       return;
     }
-    wx.$TUIKit.getUserProfile({ userIDList: [this.data.userID] }).then((imResponse) => {
+    wx.$TUIKit.getUserProfile({
+      userIDList: [this.data.userID]
+    }).then((imResponse) => {
       this.setData({
-        remoteUserInfo: { ...imResponse.data[0] },
+        remoteUserInfo: {
+          ...imResponse.data[0]
+        },
         searchResultShow: true,
       });
     });
@@ -140,7 +154,9 @@ Page({
   },
   // 图像解析不出来的缺省图设置
   handleErrorImage() {
-    const { remoteUserInfo } = this.data;
+    const {
+      remoteUserInfo
+    } = this.data;
     remoteUserInfo.avatar = 'https://web.sdk.qcloud.com/component/miniApp/resources/avatar2_100.png';
     this.setData({
       remoteUserInfo,

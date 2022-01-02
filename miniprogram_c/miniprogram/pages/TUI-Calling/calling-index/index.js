@@ -1,6 +1,8 @@
 // room.js
 // eslint-disable-next-line no-undef
-import { genTestUserSig } from '../../../debug/GenerateTestUserSig';
+import {
+  genTestUserSig
+} from '../../../debug/GenerateTestUserSig';
 // eslint-disable-next-line no-undef
 const app = getApp();
 
@@ -20,7 +22,7 @@ Page({
     localUserInfo: null,
     remoteUserInfo: {},
     userID: '',
-    searchResultShow:''
+    searchResultShow: ''
   },
 
   onLoad() {
@@ -28,31 +30,43 @@ Page({
       userInfo: wx.getStorageSync("userinfosync"),
       hasUserInfo: wx.getStorageSync('hasuserinfo'),
     })
-    // console.log(this.userInfo.avatarUrl);
-    // console.log(this.hasUserInfo);
-    
-    const { config } = this.data;
+    const {
+      config
+    } = this.data;
     config.sdkAppID = app.globalData.SDKAppID;
     config.userID = app.globalData.userInfo.userID;
     config.userSig = genTestUserSig(config.userID).userSig;
-    config.type = 2;// 视频聊天 参数2
-    //config.tim = wx.$TUIKit;
+    config.type = 2; // 视频聊天 参数2
+    config.tim = wx.$TUIKit;
     this.setData({
       config
     }, () => {
       this.TRTCCalling = this.selectComponent('#TRTCCalling-component');
-      console.log(" this.TRTCCalling == "+this.TRTCCalling);
-      console.log("config sdkAppID== " + config.sdkAppID);
-      console.log("config userID== " + config.userID);
-      console.log("config type== " + config.type);
-      console.log("config tim== " + config.tim);
-      //config.tim is null
-     this.TRTCCalling.init();
+      /***** 
+       * Correct usages:
+       *  console.log(" this.TRTCCalling == "+this.TRTCCalling);
+       * console.log("config sdkAppID== " + config.sdkAppID);
+       * console.log("config userID== " + config.userID);
+       * console.log("config type== " + config.type);
+       * Incorrect usage:
+       * console.log("config tim== " + config.tim);
+       * //this.config.tim == (privete) null
+       * Initual for login,Check if login before init():
+       * Or this.TRTCCalling.init(); -->kickout() -->toast()
+       *****/
+      //
+      //this.TRTCCalling.init();
+      //_isLogin();
+
     });
-    wx.$TUIKit.getUserProfile({ userIDList: ['user0'] }).then((imResponse) => {
+    wx.$TUIKit.getUserProfile({
+      userIDList: ['user0']
+    }).then((imResponse) => {
       console.log(imResponse.data[0]);
       this.setData({
-        remoteUserInfo: { ...imResponse.data[0] },
+        remoteUserInfo: {
+          ...imResponse.data[0]
+        },
         searchResultShow: true,
       });
     });
@@ -69,10 +83,7 @@ Page({
       url: `../../TUI-User-Center/webview/webview?url=${url}&nav=AliCloud`,
     })
   },
-
   onShow() {
-    //console.log("appid"+ app.globalData.userInfo.userID);
-    //console.log("sig"+ app.globalData.userInfo.userSig);
 
   },
   // 返回
@@ -82,12 +93,13 @@ Page({
       cancelColor: 'cancelColor',
       success: function (res) {
         if (res.confirm) {
-          wx.redirectTo({
+          wx.reLaunch({
             url: '../../TUI-Login/login',
           })
+          this.TRTCCalling.destroyed();
         } else if (res.cancel) {
           wx.showToast({
-            title: '无操作',
+            title: '取消操作',
             icon: 'none',
             duration: 3000,
           })
@@ -100,13 +112,25 @@ Page({
       privateAgree: !this.data.privateAgree,
     })
   },
-onUpload(){
-    this.TRTCCalling.destroyed();
-},
-  call() {
-    //console.log("console.log(this.config.userID) ==" + this.config.userID);
-    console.log("console.log(this.data.remoteUserInfo.userID) ==" +this.data.remoteUserInfo.userID);
-    this.TRTCCalling.call({ userID: this.data.remoteUserInfo.userID, type: 2 });
+  onUpload() {
+    wx.showToast({
+      title: '重新登陆',
+      icon: 'none',
+      success() {
+        this.TRTCCalling.destroyed();
+        wx.redirectTo({
+          url: '../../TUI-Login/login',
+        })
+      }
+    })
   },
-
+  call() {
+    //console.log("console.log(this.config.userID) == " + this.config.userID);
+    console.log("console.log(this.data.remoteUserInfo.userID) ==" + this.data.remoteUserInfo.userID);
+    //if(wx.$TUIKit)
+    this.TRTCCalling.call({
+      userID: this.data.remoteUserInfo.userID,
+      type: 2
+    });
+  },
 });

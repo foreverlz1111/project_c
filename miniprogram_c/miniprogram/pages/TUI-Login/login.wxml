@@ -1,12 +1,7 @@
 <view class="container">
   <image class="background-image" src="../../static/assets/background.svg"/>
-
   <view class="counter-warp">
     <view class="header-content">
-    <!--   
-      barner image
-      <image src="../../static/images/im.png" class="icon" /> 
-    -->
       <view class="text">
         <view class="text-header">BANNER</view>
         <view class="text-content">____________________</view>
@@ -14,34 +9,18 @@
     </view>
     <view class="box">
       <view class="list" >
-        <view class="list-item">
-          <label class="list-item-label">停车场：<text>{{park_name}}</text></label>
-          <label class="list-item-label">停车场状态：<text style="color: {{park_status?'black':'red'}}">{{park_status?'正常':'暂停'}}</text></label>
-          <label class="list-item-label">车道：<text>{{gate_name}}</text></label>
-          <label class="list-item-label">车道状态：<text style="color: {{gate_status?'black':'red'}}">{{gate_status?'正常':'暂停'}}</text></label>
-          <label class="list-item-label">匝道类型：<text>{{gate_style}}</text></label>
-          <label class="list-item-label">所在地址：<text>{{park_location}}</text></label>
-          
-          
-          <!-- <input class="input" type="text" placeholder="请输入用户名" bindinput='bindUserIDInput'   
-          inplaceholder-style="color:#BBBBBB;"/> -->
+        <view class="list-item" wx:for="{{info}}" wx:key="index" data-item="{{item}}">
+          <label class="list-item-label">{{item.name}}：
+            <text wx:if="{{item.key !== 'park_status' && item.key !== 'gate_status' }}">{{item.value}}</text>
+            <text wx:if="{{item.key === 'gate_status' }}" class="{{item.value?'':'stop'}}" >{{item.value ? '正常':'暂停'}}</text>
+            <text wx:if="{{item.key === 'park_status' }}"class="{{item.value?'':'stop'}}">{{item.value ? '正常':'暂停'}}</text>
+          </label>
         </view>
       </view>
-
-      <!-- <view class="private-protocol-box" bindtap="onAgreePrivateProtocol">
-          <view class="private-protocol-switch" >
-            <image wx:if="{{privateAgree}}" src="../../static/images/selected.png" lazy-load="true"  />
-            <image wx:else src="../../static/images/select.png" lazy-load="true" />
-          </view>
-          <view class="text-box"><text>我已阅读并同意</text><text class="link" bindtap="linkToPrivacyTreaty">《隐私条例》</text><text>和</text><text class="link" bindtap="linkToUserAgreement">《用户协议》</text>
-          </view>
-      </view> -->
       <view class='login'>
             <button hover-class="loginBtnt" class="loginBtn"  bind:tap='login'>开启客服会话 ></button>
       </view>
-      
     </view>
   </view>
-  
 </view>
 

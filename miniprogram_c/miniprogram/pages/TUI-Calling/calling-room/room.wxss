@@ -5,15 +5,15 @@
 	/* background-image: url(https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png); */
 	margin: 0;
 }
-  
+
 .trtc-calling-index {
-  width: 100vw;
-  height: 100vh;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	background: #ffffff;
+	display: flex;
+	flex-direction: column;
 }
-  
+
 .trtc-calling-index-title {
 	position: relative;
 	display: flex;
@@ -32,7 +32,7 @@
 	padding: 1.2vh;
 }
 
-.btn-goback{
+.btn-goback {
 	position: absolute;
 	left: 2vw;
 	top: 1.2vh;
@@ -48,7 +48,7 @@
 	flex-direction: column;
 }
 
-.trtc-calling-index-search > .search {
+.trtc-calling-index-search>.search {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -85,24 +85,29 @@
 	display: flex;
 	align-items: center;
 }
+
 .icon-right {
 	width: 8px;
 	height: 12px;
 	margin: 0 4px;
 }
+
 .input-search-user {
 	flex: 1;
 	box-sizing: border-box;
 }
+
 .input-label {
 	display: flex;
 	align-items: center;
 	padding-right: 5px;
 }
+
 .input-label-plus {
 	padding-bottom: 3px;
 }
-.input-search-user[placeholder]{	
+
+.input-search-user[placeholder] {
 	font-family: PingFangSC-Regular;
 	font-size: 16px;
 	color: #8A898E;
@@ -128,11 +133,13 @@
 	letter-spacing: 0;
 	font-weight: 500;
 }
+
 .userInfo-box>.userInfo-avatar {
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
 }
+
 .userInfo-box>.userInfo-name {
 	padding-left: 8px;
 	max-width: 160px;
@@ -165,10 +172,10 @@
 	z-index: 99;
 }
 
-.user-to-call > image {
+.user-to-call>image {
 	height: 50px;
 	line-height: 50px;
-	border-radius:50px
+	border-radius: 50px
 }
 
 /* .title-number {
@@ -189,6 +196,7 @@
 	display: flex;
 	align-items: center;
 }
+
 .search-selfInfo::before {
 	position: absolute;
 	content: "";
@@ -202,7 +210,8 @@
 	top: 0;
 	bottom: 0;
 }
-.search-selfInfo-phone{
+
+.search-selfInfo-phone {
 	padding-left: 8px;
 }
 
@@ -219,11 +228,13 @@
 	bottom: 5vh;
 	width: 100%;
 }
-.btn-operate-item{
+
+.btn-operate-item {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
+
 .btn-operate-item text {
 	padding: 8px 0;
 	font-size: 18px;
@@ -245,16 +256,17 @@
 	color: #FFFFFF;
 	letter-spacing: 0;
 	text-align: right;
-	text-shadow: 0 1px 2px rgba(0,0,0,0.40);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.40);
 	font-weight: 600;
 }
+
 .tips-subtitle {
 	font-family: PingFangSC-Regular;
 	font-size: 14px;
 	color: #FFFFFF;
 	letter-spacing: 0;
 	text-align: right;
-	text-shadow: 0 1px 2px rgba(0,0,0,0.30);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.30);
 	font-weight: 400;
 }
 
@@ -267,10 +279,12 @@
 	width: 100vw;
 	height: 100vh;
 }
+
 .invite-call .local-video {
 	width: 100vw;
 	height: 100vh;
 }
+
 .invite-call .invite-calling {
 	position: absolute;
 	top: 0;
@@ -278,32 +292,38 @@
 	width: 100vw;
 	height: 100vh;
 }
+
 .invite-calling-header {
-	margin-top:107px;
+	margin-top: 107px;
 	display: flex;
 	justify-content: space-between;
 	padding: 0 16px;
-	
+
 }
+
 .invite-calling-header-left image {
 	width: 32px;
 	height: 32px;
 }
+
 .invite-calling-header-right {
 	display: flex;
 	align-items: center;
 }
+
 .invite-calling-header-message {
 	display: flex;
 	flex-direction: column;
 	padding: 0 16px;
 }
+
 .invite-calling-header-right image {
 	width: 100px;
 	height: 100px;
 	border-radius: 12px;
 }
-.invite-calling .btn-operate{
+
+.invite-calling .btn-operate {
 	display: flex;
 	justify-content: center;
 	position: absolute;
@@ -356,4 +376,3 @@
 	text-align: center;
 	font-weight: 400;
 }
-

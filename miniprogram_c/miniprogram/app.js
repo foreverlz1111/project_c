@@ -1,15 +1,21 @@
 import TIM from './static/tim-wx'
 import TIMUploadPlugin from './static/tim-upload-plugin'
 import logger from './utils/logger'
-import { SDKAPPID } from './debug/GenerateTestUserSig'
+import {
+  SDKAPPID
+} from './debug/GenerateTestUserSig'
 // app.js
 App({
   onLaunch() {
     wx.setStorageSync('islogin', false)
     const SDKAppID = this.globalData.SDKAppID
     wx.setStorageSync(`TIM_${SDKAppID}_isTUIKit`, true)
-    wx.$TUIKit = TIM.create({ SDKAppID: this.globalData.SDKAppID })
-    wx.$TUIKit.registerPlugin({ 'tim-upload-plugin': TIMUploadPlugin })
+    wx.$TUIKit = TIM.create({
+      SDKAppID: this.globalData.SDKAppID
+    })
+    wx.$TUIKit.registerPlugin({
+      'tim-upload-plugin': TIMUploadPlugin
+    })
     wx.$TUIKitTIM = TIM
     wx.$TUIKitEvent = TIM.EVENT
     wx.$TUIKitVersion = TIM.VERSION
@@ -69,8 +75,7 @@ App({
     })
   },
 
-  onTIMError() {
-  },
+  onTIMError() {},
 
   onNetStateChange() {
 

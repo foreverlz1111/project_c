@@ -1,17 +1,9 @@
+
 .container {
   width: 100vw;
   height: 100vh;
   background-color: #F4F5F9;
 }
-
-/* .view {
-  height: 358rpx;
-  background: #006EFF;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 .counter-warp {
   position: absolute;
   top: 0;
@@ -27,7 +19,6 @@
 .background-image {
   width: 100%;
 }
-
 .header-content {
   display: flex;
   width: 100vw;
@@ -74,25 +65,6 @@
   padding: 30px 20px ;
 }
 
-.input-label {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  color: #006EFF;
-  letter-spacing: 0;
-  font-weight: 500;
-  padding-right: 16px;
-  color: #006EFF;
-}
-
-.input{
-  flex: 1;
-  display: flex;
-  font-family: PingFangSC-Regular;
-  font-size: 14px;
-  color: rgba(0,0,0,0.8);
-  letter-spacing: 0;
-}
 .login {
   display: flex;
   box-sizing: border-box;
@@ -119,7 +91,7 @@
   background: rgba(0,0,0)!important;
 }
 .loginBtn{
-  margin-top: 10%;
+  margin-top: 1%;
   background-color:rgba(0,0,0)!important;
   font-size: 16px;
   color: #FFFFFF;
@@ -170,7 +142,9 @@
   height: 14px;
   margin-right: 4px;
 }
-
+.stop{
+  color: rgba(255, 0, 0, 0.795);
+}
 .private-protocol-switch image {
   width: 100%;
   height: 100%;
@@ -284,7 +258,7 @@
 .list-item {
   display: flex;
   flex-direction: column;
-  /* font-family: PingFangSC-Medium; */
+  font-family: "宋体";
   font-size: 14px;
   color: #333333;
   /* border-bottom: 1px solid #EEF0F3; */

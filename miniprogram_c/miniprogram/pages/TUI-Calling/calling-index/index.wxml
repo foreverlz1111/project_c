@@ -1,10 +1,6 @@
 <!--room.wxml-->
 <view class="container">
-  <TUI-calling 
-      id="TRTCCalling-component"
-      config="{{config}}"
-      backgroundMute="{{true}}"
-    ></TUI-calling>
+  <TUI-calling id="TRTCCalling-component" config="{{config}}" backgroundMute="{{true}}"></TUI-calling>
 
   <!-- <view class='title' style='padding-top:{{(headerHeight + statusBarHeight)/2 - 12}}px'> -->
   <!-- <view class='title'>TRTC</view> -->
