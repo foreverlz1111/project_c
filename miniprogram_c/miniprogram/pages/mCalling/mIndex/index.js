@@ -55,9 +55,8 @@ Page({
        * Or this.TRTCCalling.init(); -->kickout() -->toast()
        *****/
       //
-      //this.TRTCCalling.init();
+      this.TRTCCalling.init();
       //_isLogin();
-
     });
     wx.$TUIKit.getUserProfile({
       userIDList: ['user0']
@@ -71,12 +70,7 @@ Page({
       });
     });
   },
-  // handleEntry(e) {
-  //   const url = this.data.entryInfos[e.currentTarget.id].navigateTo;
-  //   wx.navigateTo({
-  //     url,
-  //   });
-  // },
+
   linkTo() {
     const url = 'https://www.aliyun.com'
     wx.navigateTo({
@@ -94,7 +88,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.reLaunch({
-            url: '../../TUI-Login/login',
+            url: '../../mLogin/login',
           })
           this.TRTCCalling.destroyed();
         } else if (res.cancel) {
@@ -119,7 +113,7 @@ Page({
       success() {
         this.TRTCCalling.destroyed();
         wx.redirectTo({
-          url: '../../TUI-Login/login',
+          url: '../../mLogin/login',
         })
       }
     })

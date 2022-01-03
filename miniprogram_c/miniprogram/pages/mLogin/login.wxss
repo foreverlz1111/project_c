@@ -1,9 +1,9 @@
-
 .container {
   width: 100vw;
   height: 100vh;
   background-color: #F4F5F9;
 }
+
 .counter-warp {
   position: absolute;
   top: 0;
@@ -19,6 +19,7 @@
 .background-image {
   width: 100%;
 }
+
 .header-content {
   display: flex;
   width: 100vw;
@@ -28,32 +29,36 @@
   align-items: center;
 }
 
-.header-content > image {
+.header-content>image {
   width: 128px;
   height: 84px;
 }
-.header-content > .icon {
+
+.header-content>.icon {
   width: 76px;
   height: 50px;
 }
-.text{
+
+.text {
   text-align: left;
   padding-left: 40rpx;
 }
-.text-header{
+
+.text-header {
   height: 72rpx;
   font-size: 48rpx;
   line-height: 72rpx;
   color: #FFFFFF;
 }
 
-.text-content{
+.text-content {
   height: 36rpx;
   font-size: 24rpx;
   line-height: 36rpx;
   color: #FFFFFF;
 }
-.box{
+
+.box {
   width: 80%;
   height: 50vh;
   position: relative;
@@ -62,7 +67,7 @@
   display: flex;
   flex-direction: column;
   justify-content: left;
-  padding: 30px 20px ;
+  padding: 30px 20px;
 }
 
 .login {
@@ -71,13 +76,15 @@
   margin-top: 15px;
   width: 100%;
 }
-.login image{
+
+.login image {
   height: 20px;
   width: 20px;
   color: white;
 }
-.login button{
-  background: rgba(0,110,255,1);
+
+.login button {
+  background: rgba(0, 110, 255, 1);
   border-radius: 8px;
   font-size: 16px;
   color: #FFFFFF;
@@ -86,21 +93,24 @@
   font-weight: 500;
 }
 
- .loginBtn[disabled] {
+.loginBtn[disabled] {
   color: #FFFFFF !important;
-  background: rgba(0,0,0)!important;
+  background: rgba(0, 0, 0) !important;
 }
-.loginBtn{
+
+.loginBtn {
   margin-top: 1%;
-  background-color:rgba(0,0,0)!important;
+  background-color: rgba(0, 0, 0) !important;
   font-size: 16px;
   color: #FFFFFF;
   letter-spacing: 0;
 }
-.loginBtnt{
-  background-color:#567b95 !important;
+
+.loginBtnt {
+  background-color: #567b95 !important;
 }
-.codeBtn{
+
+.codeBtn {
   background: #006EFF;
   border: 0px;
   font-size: 12px;
@@ -111,22 +121,26 @@
   font-weight: 400;
   padding: 7px;
 }
-.codeBtn[disabled]{
+
+.codeBtn[disabled] {
   background: #ffffff !important;
 }
-.btn{
-  width:180rpx;
+
+.btn {
+  width: 180rpx;
   color: #006eff;
   background-color: white;
   align-items: center;
 }
+
 .close {
-  position:absolute;
-  padding-left:5vw;
-  padding-right:5vw;
-  width:50rpx;
-  height:60rpx;
+  position: absolute;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  width: 50rpx;
+  height: 60rpx;
 }
+
 .private-protocol-box {
   display: flex;
   align-items: center;
@@ -137,14 +151,17 @@
   line-height: 14px;
   font-weight: 400;
 }
+
 .private-protocol-switch {
   width: 14px;
   height: 14px;
   margin-right: 4px;
 }
-.stop{
+
+.stop {
   color: rgba(255, 0, 0, 0.795);
 }
+
 .private-protocol-switch image {
   width: 100%;
   height: 100%;
@@ -152,7 +169,8 @@
   padding-top: 5px;
   flex-shrink: 0;
 }
-.text-box{
+
+.text-box {
   padding-top: 10px;
   width: 100%;
   font-family: PingFangSC-Regular;
@@ -172,7 +190,7 @@
   position: fixed;
 }
 
-.show{
+.show {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -194,19 +212,20 @@
 } */
 
 
-.User-ID{
+.User-ID {
   font-family: PingFangSC-Medium;
   font-size: 14px;
   color: #333333;
   letter-spacing: 0;
-  margin-top:5px;
+  margin-top: 5px;
 }
 
-.User-ID-box{
+.User-ID-box {
   border-bottom: 1px solid #EEEEEE;
-  font-size:14px
+  font-size: 14px
 }
-.Log-box{
+
+.Log-box {
   width: 80%;
   height: 50vh;
   position: relative;
@@ -216,10 +235,11 @@
   display: flex;
   flex-direction: column;
   justify-content: left;
-  padding: 50px 20px ;
+  padding: 50px 20px;
   margin-left: 20px;
 }
-.background-image2{
+
+.background-image2 {
   width: 100%;
 }
 
@@ -230,8 +250,8 @@
   width: 100%;
 }
 
-.login button{
-  background: rgba(0,110,255,1);
+.login button {
+  background: rgba(0, 110, 255, 1);
   border-radius: 8px;
   font-size: 16px;
   color: #FFFFFF;
@@ -240,15 +260,16 @@
   font-weight: 500;
 }
 
-.logoutBtn{
-  background-color:white;
+.logoutBtn {
+  background-color: white;
   border-radius: 8px;
   border-radius: 8px;
   /* display: flex;
   justify-content: center; */
   width: 100% !important;
 }
-.btn-logout-text{
+
+.btn-logout-text {
   font-family: PingFangSC-Regular;
   font-size: 16px;
   color: red;
@@ -263,11 +284,13 @@
   color: #333333;
   /* border-bottom: 1px solid #EEF0F3; */
 }
+
 .list-item .list-item-label {
   font-weight: 500;
   padding: 10px 0;
   font-size: medium;
 }
+
 .list-item .list-item-main {
   padding: 6px 0;
   color: #999999;

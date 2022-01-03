@@ -25,14 +25,41 @@ Page({
     countryIndicatorStatus: false,
     headerHeight: app.globalData.headerHeight,
     statusBarHeight: app.globalData.statusBarHeight,
-    info:[
-      { name:'车场ID',key:'park_id',value:0},
-      { name:'车场名称',key:'park_name',value:'null'}, 
-      { name:'地址',key:'park_location',value:'null'}, 
-      { name:'车场状态',key:'park_status',value:false}, 
-      { name:'车场道闸',key:'gate_id',value:0},
-      { name:'道闸类型',key:'gate_style',value:'null'},
-      { name:'道闸状态',key:'gate_status',value:true}, 
+    info: [{
+        name: '车场ID',
+        key: 'park_id',
+        value: 0
+      },
+      {
+        name: '车场名称',
+        key: 'park_name',
+        value: 'null'
+      },
+      {
+        name: '地址',
+        key: 'park_location',
+        value: 'null'
+      },
+      {
+        name: '车场状态',
+        key: 'park_status',
+        value: false
+      },
+      {
+        name: '车场道闸',
+        key: 'gate_id',
+        value: 0
+      },
+      {
+        name: '道闸类型',
+        key: 'gate_style',
+        value: 'null'
+      },
+      {
+        name: '道闸状态',
+        key: 'gate_status',
+        value: true
+      },
     ],
   },
   onLoad(option) {
@@ -81,7 +108,7 @@ Page({
             });
             setTimeout(() => {
               wx.redirectTo({
-                url: '../TUI-Calling/calling-index/index',
+                url: '../mCalling/mIndex/index',
               })
             }, 2000);
           }
@@ -90,18 +117,15 @@ Page({
     })
   },
   onShow() {
-   
+
   },
   // Token没过期可以利用Token登陆。无作用
   // loginWithToken() {
-  //   wx.redirect({
-  //     url: '../TUI-Calling/calling-index/index',
-  //   })
   // },
 
   // 回退
   onBack() {
-   
+
   },
   // 输入userID
   bindUserIDInput(e) {

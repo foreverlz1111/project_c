@@ -1,5 +1,5 @@
 <view class="container">
-  <image class="background-image" src="../../static/assets/background.svg"/>
+  <image class="background-image" src="../../static/assets/background.svg" />
   <view class="counter-warp">
     <view class="header-content">
       <view class="text">
@@ -8,19 +8,18 @@
       </view>
     </view>
     <view class="box">
-      <view class="list" >
+      <view class="list">
         <view class="list-item" wx:for="{{info}}" wx:key="index" data-item="{{item}}">
           <label class="list-item-label">{{item.name}}：
             <text wx:if="{{item.key !== 'park_status' && item.key !== 'gate_status' }}">{{item.value}}</text>
-            <text wx:if="{{item.key === 'gate_status' }}" class="{{item.value?'':'stop'}}" >{{item.value ? '正常':'暂停'}}</text>
-            <text wx:if="{{item.key === 'park_status' }}"class="{{item.value?'':'stop'}}">{{item.value ? '正常':'暂停'}}</text>
+            <text wx:if="{{item.key === 'gate_status' }}" class="{{item.value?'':'stop'}}">{{item.value ? '正常':'暂停'}}</text>
+            <text wx:if="{{item.key === 'park_status' }}" class="{{item.value?'':'stop'}}">{{item.value ? '正常':'暂停'}}</text>
           </label>
         </view>
       </view>
       <view class='login'>
-            <button hover-class="loginBtnt" class="loginBtn"  bind:tap='login'>开启客服会话 ></button>
+        <button hover-class="loginBtnt" class="loginBtn" bind:tap='login'>开启客服会话 ></button>
       </view>
     </view>
   </view>
 </view>
-
