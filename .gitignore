@@ -4,3 +4,8 @@ miniprogram_c_cache
 web_cache
 miniprogram_c/miniprogram/debug.log
 web/README.md
+web/dist
+web/public
+web/node_modules
+web/package.json
+web/package-lock.json
