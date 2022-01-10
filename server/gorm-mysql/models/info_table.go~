@@ -1,0 +1,12 @@
+package models
+
+import "gorm.io/gorm"
+
+//Book model
+type info_table struct {
+	gorm.Model
+	id int 'json:"id"'
+	name string 'json:"name"'
+	whentime int 'json:"whentime"'
+	statue int 'json:"status"'
+}
