@@ -6,10 +6,10 @@ import (
 //结构体Info_table，首字母需要大写
 type Info_table struct {
 	//字段首字母需要大写
-	Id int `json:"id"`
+	Id int `json:"id";gorm:"primaryKey;AUTO_INCREMENT"`
 	Name string `json:"name"`
 	Whentime time.Time `json:"whentime"`
-	Statue int `json:"status"`
+	Status int `json:"status"`
 }
 func (Info_table)TableName()string{
 	//重写查询的表名

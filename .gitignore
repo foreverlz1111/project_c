@@ -4,3 +4,5 @@ miniprogram_c_cache
 web_cache
 web
 miniprogram_c/miniprogram/debug.log
+*.*~
+*.*#

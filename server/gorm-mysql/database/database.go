@@ -1,7 +1,7 @@
 package database
 
 import (
-	"gorm-mysql/models"
+
 	"log"
 	"os"
 
@@ -17,7 +17,8 @@ var (
 func ConnectDb() {
 
 	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name for details
-	dsn := "username:password@tcp(mysql.rds.aliyuncs.com:3306)/test_connection_go?charset=utf8&parseTime=True&loc=Local"
+	
+	dsn := "user:password@tcp(mysql.rds.aliyuncs.com:3306)/test_connection_go?charset=utf8&parseTime=True&loc=Local"
 	/*
 		提示:
 		为了正确使用time.Time类型，请注意设置parseTime参数；

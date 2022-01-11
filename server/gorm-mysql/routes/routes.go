@@ -5,6 +5,8 @@ import (
 	"gorm-mysql/models"
 	"log"
 	"github.com/gofiber/fiber/v2"
+	"time"
+	"strconv"
 )
 
 //Hello
@@ -21,7 +23,17 @@ func Allinfo(c *fiber.Ctx) error {
 		log.Println("info[0].Name ",info[0].Id)
 	}
 	return c.Status(200).JSON(info)
-
-	
 }
 
+func Insertone(c *fiber.Ctx)error{
+	info := new(models.Info_table)
+	if err := c.BodyParser(info); err != nil {
+		return c.Status(400).JSON(err.Error())
+	}
+	str := c.Params("my_timestamp")
+	unix ,_ := strconv.ParseInt(str,10,64)
+	info.Whentime = time.Unix(unix, 0)
+	result := database.DBConn.Create(&info)
+	log.Printf("期望插入内容 %v,影响行数 :%v,错误 %v",info,result.RowsAffected,result.Error)
+	return c.Status(200).JSON(info)
+}

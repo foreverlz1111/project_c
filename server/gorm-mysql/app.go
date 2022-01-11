@@ -8,11 +8,14 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+
+	
 )
 
 func setUpRoutes(app *fiber.App) {
 	app.Get("/hello", routes.Hello)
-	app.Get("/Allinfo", routes.Allinfo)
+	app.Get("/allinfo", routes.Allinfo)
+	app.Post("/insertone/:my_timestamp",routes.Insertone)
 }
 
 func main() {
