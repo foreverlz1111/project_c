@@ -13,7 +13,7 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-
+    refresh_button:true,
     userID: '6620',
     // 用户ID硬代码
 
@@ -63,7 +63,16 @@ Page({
     ],
   },
   onLoad(option) {
+    this._get_info();
     wx.$TUIKit.setLogLevel(1);
+    /*废弃
+    wx.setBackgroundColor({
+      backgroundColor: '#000000',
+      success(res){
+        console.log(res)
+      }
+    })
+    */
     this.setData({
       path: option.path,
     })
@@ -77,7 +86,54 @@ Page({
       })
     }
   },
-  getUserProfile(e) {
+  _check_server(){
+    wx.request({
+      url: 'http://lzypro.com:3000/hello',
+      success(res){
+        console.log(res.data)
+      }
+    })
+  },
+  _get_info(){
+    /***********
+     *         POST：
+                1.go使用time.Time类型，微信使用timestamp，需要将timestamp传入服务器运算后得到time.Time类型
+                2.go的time.Time类型与mysql的timestamp类型不冲突，中间件可以自适应
+    var my_timestamp = Date.parse(new Date());
+    my_timestamp = my_timestamp / 1000;
+    console.log(my_timestamp);
+    wx.request({
+      url: 'http://10.0.2.2:3000/insertone/'+my_timestamp,
+      method:'POST',
+      data:{
+        name:"Eva",
+        status:1,
+      },
+    })
+    ***********/
+  },
+  _refresh_info(){
+    //从showToast()改用showLoading()
+    this._get_info();
+    this.setData({refresh_button : false}) 
+    wx.showLoading({
+      title: '加载中',
+      icon:'success',
+      duration:3000,
+      mask:true
+    })
+    setTimeout(() => {
+      this.setData({refresh_button : true}) 
+    }, 5000);
+  },
+  _refresh_info_error(){
+    wx.showToast({
+      title: '请稍后刷新',
+      icon:'error',
+      duration:1000
+    })
+  },
+  _getUserProfile(e) {
     //每次通过该接口获取用户个人信息均需用户确认
     wx.getUserProfile({
       desc: '选择用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
@@ -127,13 +183,14 @@ Page({
   onBack() {
 
   },
-  // 输入userID
+  // 输入userID，【废弃】
   bindUserIDInput(e) {
     const val = e.detail.value
     this.setData({
       userID: val,
     })
   },
+  //登录IM服务器，获取微信用户信息
   login() {
     const userID = this.data.userID
     const userSig = genTestUserSig(userID).userSig
@@ -145,6 +202,6 @@ Page({
     setTokenStorage({
       userInfo: app.globalData.userInfo,
     })
-    this.getUserProfile();
+    this._getUserProfile();
   },
 })

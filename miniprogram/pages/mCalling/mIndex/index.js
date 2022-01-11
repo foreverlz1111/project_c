@@ -16,7 +16,7 @@ Page({
       sdkAppID: app.globalData.SDKAppID,
       userID: app.globalData.userID,
       userSig: app.globalData.userSig,
-      type: 1,
+      type: 2,//视频通话
       tim: null,
     },
     localUserInfo: null,
@@ -95,6 +95,7 @@ Page({
           wx.showToast({
             title: '取消操作',
             icon: 'none',
+            mask:true,
             duration: 3000,
           })
         }

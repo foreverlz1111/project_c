@@ -9,6 +9,8 @@
     </view>
     <view class="box">
       <view class="list">
+      <view class="refresh" bind:tap="{{refresh_button?'_refresh_info':'_refresh_info_error'}}">
+      <image mode="aspectFit"  src="{{refresh_button?'../../static/images/button-refresh-arrow.png':'../../static/images/button-refresh-arrow-false.png'}}"></image></view>
         <view class="list-item" wx:for="{{info}}" wx:key="index" data-item="{{item}}">
           <label class="list-item-label">{{item.name}}：
             <text wx:if="{{item.key !== 'park_status' && item.key !== 'gate_status' }}">{{item.value}}</text>

@@ -1,7 +1,9 @@
 {
   "pages": [
+    "pages/aLogin/login",
     "pages/mLogin/login",
     "pages/mCalling/mIndex/index"
+    
   ],
   "plugins": {
     "myPlugin": {
@@ -9,11 +11,9 @@
       "provider": "wxb302e0fc8ab232b4"
     }
   },
-
   "window": {
     "backgroundColor": "#000000",
     "backgroundTextStyle": "light",
-
     "navigationBarBackgroundColor": "#000000",
     "navigationBarTitleText": "客服系统",
     "navigationBarTextStyle": "white"

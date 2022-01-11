@@ -1,0 +1,23 @@
+<!--pages/aLogin/login.wxml-->
+<!-- hello ~ -->
+<view class="container">
+<view class="form-box" >
+
+<form bindsubmit="formsubmit" bindreset="formreset">
+  <text id="barner">登陆平台</text>
+  <input id="user_input" name='number' type="number" maxlength="11" minlength="11" placeholder="请输入11位账号" confirm-type="next"></input>
+
+  <input id="password_input" name='password' type="password" confirm-type="done" placeholder="请输入密码"></input>
+  <text hidden="{{isNull}}">不能为空</text>
+  <view bindtap="_login" form-type="submit" class="submit_button">
+    <image mode="aspectFill" form-type="submit" id="submit_img" src="{{login_bnt_cold?'../../static/images/进入.png':'../../static/images/进入-hover.png'}}">
+    </image>
+  </view>
+  <!-- 
+  <button formType="reset" id="reset_button">
+    <image id="reset_img" src="../../icon/重置.png"></image>
+  </button>
+   -->
+</form>
+</view>
+</view>

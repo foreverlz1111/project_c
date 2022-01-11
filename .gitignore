@@ -1,8 +1,9 @@
-miniprogram_c/miniprogram/debug/GenerateTestUserSig.js
-miniprogram_a_cache
-miniprogram_c_cache
+miniprogram/debug/GenerateTestUserSig.js
+miniprogram/debug.log
+miniprogram/project.config.json
+miniprogram_cache
 web_cache
 web
-miniprogram_c/miniprogram/debug.log
+server/basic/database
 *.*~
 *.*#

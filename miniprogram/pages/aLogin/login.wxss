@@ -1,0 +1,111 @@
+/* pages/aLogin/login.wxss */
+/**
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}**/
+.container{
+  padding: 20rpx 0;
+  background: #000000;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+.form-box{
+  
+  background-color: white;
+  border-radius: 8px;
+  width: 80%;
+  height: 60vh;
+  margin-top:20vh;
+  border: 0.5px solid;
+  padding: 0;
+  box-shadow: 5px,5px,5px,gainsboro;
+}
+#barner {
+  position: relative;
+  display: flex;
+  font-size: 150%;
+  /* 无效设置
+  font-family: '微软雅黑'; */
+  margin-left: 15%;
+  margin-top: 50px;
+}
+
+#user_input {
+  margin-left: 15%;
+  margin-top: 5px;
+  margin-right: 15%;
+  width: 250px;
+  height: 40px;
+  border-bottom: 1px solid;
+  border-radius: 1%;
+}
+
+#password_input {
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 5%;
+  width: 250px;
+  height: 40px;
+  border-bottom: 1px solid;
+  border-radius: 1%;
+}
+
+#logo {
+  width: 50px;
+  height: 50px;
+  margin-top: 10%;
+  margin-left: 42%;
+}
+
+.submit_button {
+  margin-top: 20px;
+  /* border: 1px solid; */
+  width: 50px;
+  height: 50px;
+  margin-left: 40%;
+  margin-bottom: 60px;
+  float: left;
+  background-color: white;
+}
+.submit_button image{
+    width: 50px;
+    height: 50px
+}
+/*
+#reset_button{
+  float: right;
+  margin-right: 30%;
+  width: 25%;
+  height: 15%;
+  margin-top: 20px;
+  background-color: white;
+}
+#reset_img{
+  width: 50px;
+  height: 50px;
+}*/
+
