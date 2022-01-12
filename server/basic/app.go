@@ -1,7 +1,7 @@
 package main
 import(
 	"log"
-	//"gorm-mysql/database"
+	"gorm-mysql/database"
 	"gorm-mysql/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -10,10 +10,11 @@ import(
 )
 func _SetRoutes(app *fiber.App){
 	app.Get("/hello",timeout.New(routes.Hello, 5 * time.Second))
+	app.Get("/login/:account/:password/",routes.Login)
 }
 
 func main(){
-	//database.ConnectDB()
+	database.ConnectDB()
 	app := fiber.New()
 	_SetRoutes(app)
 	app.Use(cors.New())
