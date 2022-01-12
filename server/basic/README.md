@@ -1,0 +1,1 @@
+- 备注：本文件夹没有database.go，从范例“gorm-mysql”中获取。
