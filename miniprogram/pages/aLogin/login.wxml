@@ -5,9 +5,9 @@
 
 <form bindsubmit="_login" bindreset="formreset">
   <text id="barner">登陆平台</text>
-  <input bindinput="_return_account" name="account_input" class="info_input" type="text" maxlength="20" minlength="11" placeholder="请输入账号" confirm-type="next"></input>
-
-  <input bindinput="_return_password" class="info_input"  type="password" confirm-type="done" placeholder="请输入密码" ></input>
+  <input bindinput="return_account" name="account_input" class="info_input" type="text" maxlength="20" minlength="11" placeholder="请输入账号" confirm-type="next"></input>
+  
+  <input bindinput="return_password" class="info_input"  type="password" confirm-type="done" placeholder="请输入密码" ></input>
   <text hidden="{{isNull}}">不能为空</text>
   <view  form-type="submit" class="submit_button">
     <image bindtap="login" mode="aspectFill" id="submit_img" src="{{login_bnt_cold?'../../static/images/login.png':'../../static/images/login-hover.png'}}">

@@ -120,7 +120,6 @@ Page({
     })
   },
   call() {
-    //console.log("console.log(this.config.userID) == " + this.config.userID);
     console.log("console.log(this.data.remoteUserInfo.userID) ==" + this.data.remoteUserInfo.userID);
     //if(wx.$TUIKit)
     this.TRTCCalling.call({

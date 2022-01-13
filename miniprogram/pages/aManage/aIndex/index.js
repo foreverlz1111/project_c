@@ -5,11 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    init_index:[
-      {title: "通话记录",icon:"../../../static/images/file.png",url:"../aRecord/record"},
-      {title: "权限管理",icon:"../../../static/images/rating.png",url:"../aPrivilege/privilege"},
-      {title: "车场管理",icon:"../../../static/images/star.png",url:"../aParking/parking"},
-      
+    init_index1:[
+      {title: "通话记录",icon:"../../../static/images/notes-tasks.png",url:"../aRecord/record"},
+      {title: "权限管理",icon:"../../../static/images/programming-user-head.png",url:"../aPrivilege/privilege"},
+      {title: "车场管理",icon:"../../../static/images/parking-ramp.png",url:"../aParking/parking"},
+    ],
+    init_index2:[
+      {title: "新增车场",icon:"../../../static/images/parking-p.png",url:"../aPlus/plus"},
     ],
     account_entity : {},
     ready_call :false,
@@ -17,8 +19,12 @@ Page({
   },
 
   onLoad: function (options) {
-    this.data.account_entity = wx.getStorageSync('account_entity');
-    console.log(account_entity);
+    wx.hideHomeButton({
+      success: (res) => {},
+    })
+    this.setData({
+      account_entity: wx.getStorageSync('account_entity')
+    });
   },
   _redirect(event){
     const tab = event.currentTarget.dataset.item;

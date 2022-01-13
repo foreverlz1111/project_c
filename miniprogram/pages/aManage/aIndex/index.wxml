@@ -4,23 +4,33 @@
   <view>
     <label>账号：{{account_entity.account}}</label>
   </view>
+  <view>
+    <label>所属停车场：{{park_account_entity.id}}</label>
+  </view>
       <view
-      ><label>开启客服：</label><switch bindchange="switch_ready" checked="{{ready_call}}"></switch>
+      ><label>接受视频来电：</label><switch bindchange="switch_ready" checked="{{ready_call}}"></switch>
       </view>
       
   </view>
 <view id="borderline">
   <text id="boderline_text">请选择</text>
   <image id="borderline_image" src="../../../static/images/conversation-profile.png"></image>
+  
 </view>
 
 <view id="class_view">
-  <view class="class_button" wx:for="{{init_index}}" wx:key="index"data-item="{{item}}" bindtap="_redirect">
+  <view class="class_button" wx:for="{{init_index1}}" wx:key="index"data-item="{{item}}" bindtap="_redirect">
     <image mode="aspectFit" class="class_image" src="{{item.icon}}"></image>
     <text class="class_text">{{item.title}}</text>
   </view>
 </view>
-
-
-
+<view id="class_view">
+  <view hidden="true" class="class_button" wx:for="{{init_index2}}" wx:key="index"data-item="{{item}}" bindtap="_redirect">
+    <image mode="aspectFit" class="class_image" src="{{item.icon}}"></image>
+    <text class="class_text">{{item.title}}</text>
+  </view>
 </view>
+</view>
+<button hidden="true" class="exit_bnt">
+退出登录
+</button>

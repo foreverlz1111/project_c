@@ -4,13 +4,15 @@ Page({
     //console.log(this.data.server_ready);
     account_input :'',
     password_input : '',
-    server_ready:false,
     isNull: true,
     login_bnt_cold:true
   },
 
   onLoad: function (options) {
-    this.setData({server_ready:false});
+    this.setData({
+      account_input:'Tom',
+      password_input:123456,
+    });
     
   },
   login(){
@@ -23,7 +25,32 @@ Page({
       error_toast("输入不能为空哦")
     }
     else{
-      this.check_server();
+      this.check_server().then((s)=>{
+        console.log(s),
+        this.check_login(account,password).then((res)=>{
+          if(res.statusCode == 200){
+            wx.hideLoading({
+              success: (h) => {
+                wx.setStorage({
+                  key : "account_entity", 
+                  data : res.data
+                });
+                wx.redirectTo({
+                  url: '../aManage/aIndex/index',
+                })
+              },
+            })
+          }
+          else if(res.statusCode == 400){
+            _this._return_error_toast(res.data);
+          }
+        }).catch((res)=>{
+          console.log(res);
+        })
+        }
+          ).catch((res)=>{
+            console.log(res);
+          });
       this.setData({login_bnt_cold:false,});
       //wx.showLoading()偶尔出现显示bug，PC和手机端均无法使用属性
      wx.showLoading({
@@ -31,55 +58,51 @@ Page({
        mask:true,
     })
     setTimeout(()=>{
-      console.log(this.data.server_ready);
-      if(this.data.server_ready == true ){;
-        wx.request({
-          url: 'http://lzypro.com:3000/login/'+account+'/'+password,
-          method:"GET",
-          success(res){
-            if(res.statusCode == 200){
-              console.log(res.data.id);
-              wx.hideLoading({
-                success: (res) => {
-                  wx.setStorageSync('account_entity', res.data);
-                  wx.redirectTo({
-                    url: '../aManage/aIndex/index',
-                  })
-                },
-              })
-            }
-            else if(res.statusCode == 400){
-              error_toast(res.data)
-            }
-          }
+        this.setData({login_bnt_cold:true});
+        wx.hideLoading({
+        success: (res) => {},
       })
-   }
-    }, 2000);
-    setTimeout(()=>{this.setData({login_bnt_cold:true});
-  wx.hideLoading({
-    success: (res) => {},
-  })}, 6000);
+    }, 6000);
   }
   },
  check_server(){
-   var error_toast = this._return_error_toast;
-   var _this = this;
+  var _this = this;
+   let promise = new Promise(function(solve,reject){
     wx.request({
       url: 'http://lzypro.com:3000/hello',
       timeout:3000,
       success(res){
-        console.log(res);
-        _this.setData({server_ready:true});
+        solve(res);
       },
-      fail(res){
-        error_toast("服务器问题");
+      fail(){
+        _this._return_error_toast("服务器连接问题");
+        reject("服务器连接问题");
       }
     })
+   })
+   return promise;
   },
-  _return_account(data){
+  check_login(account,password){
+    var _this = this;
+    let promise = new Promise(function(solve,reject){
+      wx.request({
+        url: 'http://lzypro.com:3000/login/'+account+'/'+password,
+        method:"GET",
+        success(res){
+          solve(res)
+        },
+        fail(){
+          _this._return_error_toast("登录问题");
+          reject("登录问题")
+        }
+      })
+    });
+    return promise;
+  },
+  return_account(data){
     this.data.account_input = data.detail.value;
   },
-  _return_password(data){
+  return_password(data){
     this.data.password_input = data.detail.value;
   },
   _return_error_toast:function(t){
