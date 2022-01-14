@@ -15,13 +15,18 @@
 }
 .tip {
   position: relative;
-  margin-right: 50%;
+  float: left;
+  /* margin-right: 50%; */
 }
 .tip view{
   margin-top: 1vh;
+  float: left;
+  margin-left: 2vh;
 }
 .tip label{
+  display: inline;
   color: white;
+
 }
 
 #borderline {

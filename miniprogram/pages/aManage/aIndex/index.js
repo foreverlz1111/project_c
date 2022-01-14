@@ -14,6 +14,7 @@ Page({
       {title: "新增车场",icon:"../../../static/images/parking-p.png",url:"../aPlus/plus"},
     ],
     account_entity : {},
+    park_entity:{},
     ready_call :false,
     account:'未定义'
   },
@@ -25,6 +26,45 @@ Page({
     this.setData({
       account_entity: wx.getStorageSync('account_entity')
     });
+    this._get_park(this.data.account_entity.id).then((res=>{
+        console.log(res)
+    })).catch((res)=>{
+      if(res!=''){
+        this._get_park(this.data.account_entity.id)
+      }
+    });
+
+
+  },
+  _get_park(account_id){
+      var _this = this;
+      let promise = new Promise(function(s,e){
+        wx.request({
+          url: 'http://lzypro.com:3000/park/'+account_id,
+          timeout:3000,
+          method:"GET",
+          success(res){
+            if(res.statusCode == 200){
+              wx.setStorage({
+                key : "park_entity", 
+                data : res.data,
+              });
+              _this.setData({
+                park_entity:res.data,
+              })
+            }
+            else if(res.statusCode == 400){
+              _this._return_error_toast(res.data)
+            }
+            s(res);
+          },
+          fail(){
+            _this._return_error_toast("网络问题");
+            e("网络问题");
+          }
+        })
+      })
+      return promise;
   },
   _redirect(event){
     const tab = event.currentTarget.dataset.item;
@@ -76,7 +116,20 @@ switch_ready:function(e){
   onReachBottom: function () {
 
   },
-
+  _return_error_toast:function(t){
+    wx.showToast({
+      title: t,
+      icon:"error",
+      duration:2000
+    })
+  },
+  _return_success_toast:function(t){
+    wx.showToast({
+      title: t,
+      icon:"success",
+      duration:2000
+    })
+  },
   /**
    * 用户点击右上角分享
    */

@@ -11,8 +11,8 @@ import(
 func _SetRoutes(app *fiber.App){
 	app.Get("/hello",timeout.New(routes.Hello, 5 * time.Second))
 	app.Get("/login/:account/:password/",routes.Login)
-	app.Get("/park_account/:account_id",routes.Park_account)
-	
+	app.Get("/park/:account_id",routes.Park)
+	app.Get("/road_gate/:park_id",routes.Road_gate)
 }
 
 func main(){

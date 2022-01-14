@@ -1,2 +1,17 @@
 <!--pages/aManage/aParking/parking.wxml-->
-<text>pages/aManage/aParking/parking.wxml</text>
+<view>
+<scroll-view class="scroll">
+<label>停车场名: <text>{{park_entity.park_name}}</text></label>
+<label>所在省市区: {{park_entity.city}}</label>
+<label>地址: {{park_entity.address}}</label>
+</scroll-view>
+</view>
+
+<scroll-view class="collect_form">
+  <view class="item" wx:for="{{road_gate}}" wx:key="index"data-item="{{item}}" >
+    <label>闸口ID：{{item.id}}</label>
+    <label>闸口类型：{{read_gate.road_gate_type}}</label>
+    <label>闸口状态：{{open_gate.open_type}}<button plain="true">修改状态</button></label>
+    
+  </view>
+</scroll-view>
