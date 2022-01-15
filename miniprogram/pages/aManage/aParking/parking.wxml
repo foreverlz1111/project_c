@@ -8,10 +8,10 @@
 </view>
 
 <scroll-view class="collect_form">
-  <view class="item" wx:for="{{road_gate}}" wx:key="index"data-item="{{item}}" >
-    <label>闸口ID：{{item.id}}</label>
-    <label>闸口类型：{{read_gate.road_gate_type}}</label>
-    <label>闸口状态：{{open_gate.open_type}}<button plain="true">修改状态</button></label>
-    
+  <view class="item" wx:for="{{road}}" wx:key="index"data-item="{{item}}" >
+    <label>闸口ID：{{item.road_id}}</label>
+    <label>闸口类型：{{item.road_gate_type==1?'进口':(item.road_gate_type==2?'出口':'进出口')}}</label>
+    <label style="color: {{item.open_gate_type==1?'BLACK':'RED'}};">闸口状态：{{item.open_gate_type==1?'开启':'关闭'}}
+    <switch id="{{item.open_id}}" data-status="{{item.open_gate_type}}" name="{{item.open_gate_type}}"  disabled="true" bindtap="open_status" class="status_switch" checked="{{item.open_gate_type==1?true:false}}"></switch></label> 
   </view>
 </scroll-view>

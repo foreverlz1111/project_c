@@ -10,9 +10,11 @@ import(
 )
 func _SetRoutes(app *fiber.App){
 	app.Get("/hello",timeout.New(routes.Hello, 5 * time.Second))
-	app.Get("/login/:account/:password/",routes.Login)
-	app.Get("/park/:account_id",routes.Park)
-	app.Get("/road_gate/:park_id",routes.Road_gate)
+	app.Get("/login/:account/:password/",routes.Login)//登陆
+	app.Get("/park/:account_id",routes.Park)//返回关联车场
+	app.Get("/road_gate/:park_id",routes.Road_gate)//[废弃内容]
+	app.Get("/road/:park_id",routes.Road)//返回道闸信息
+	app.Put("/open_change",routes.Open_change)//开关闸
 }
 
 func main(){

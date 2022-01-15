@@ -6,8 +6,7 @@ Page({
    */
   data: {
     account_entity:{},
-    road_gate:[],
-    open_gate:[],
+    road:[],
     park_entity:{}
   },
 
@@ -21,24 +20,74 @@ Page({
     });
 
     this._get_control(this.data.park_entity.id).then((res)=>{
-      //接口分别返回r和o，通过填充
-      //console.log(res.data.r);
-      //console.log(res.data.o);
+      //接口返回4个元组
+    
   });
+  },
+  open_status:function(event){
+    var question = event.detail.value==true?"开启?":"关闭?";
+    var _this = this;
+    var open_gate_id = event.currentTarget.id;
+    var status = event.currentTarget.dataset.status;
+wx.showModal({
+  title:"修改状态",
+  content:"是否将闸口状态设为"+question,
+  confirmColor: event.detail.value==false?"#DC143C":"#000000",
+  confirmText:"是的",
+  success(s){
+    if(s.cancel)console.log("cancel!")
+    if(s.confirm){
+      _this._change_status(open_gate_id,status).then((res)=>{
+        _this._get_control(_this.data.park_entity.id);
+      }).catch((e)=>{
+        console.log(e)
+      })
+    }
+  }
+})
+  },
+  _change_status(id,status){
+    var _this = this
+    let promise = new Promise(function(s,e){
+      wx.request({
+        url: 'http://lzypro.com:3000/open_change',
+        method:"PUT",
+        data:{
+          "id" : id,
+          "status" : status,
+        },
+        success(res){
+          if(res.statusCode == 200){
+            // wx.setStorage({ key : "road_gate",data : res.data.r});
+            console.log(res)
+            s(res.data)
+            _this._return_success_toast(res.data)
+          }
+          else if(res.statusCode == 400){
+            _this._return_error_toast(res.data)
+          }
+          s(res)
+        },
+        fail(){
+          _this._return_error_toast("请求超时");
+        }
+      })
+    })
+    return promise;
   },
   _get_control(park){
     var _this = this
     let promise = new Promise(function(s,e){
       wx.request({
-        url: 'http://lzypro.com:3000/road_gate/'+park,
+        url: 'http://lzypro.com:3000/road/'+park,
         method:"GET",
         success(res){
           if(res.statusCode == 200){
             // wx.setStorage({ key : "road_gate",data : res.data.r});
             _this.setData({
-              road_gate:res.data.r,
-              open_gate:res.data.o,
+              road:res.data,
             })
+            s(res.data)
           }
           else if(res.statusCode == 400){
             _this._return_error_toast(res.data)

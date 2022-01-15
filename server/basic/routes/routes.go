@@ -5,7 +5,9 @@ import (
 	"gorm-mysql/database"
 	"gorm-mysql/models"
 	"log"
-
+	"time"
+	"encoding/json"
+	"strconv"
 )
 
 type Items struct {
@@ -79,3 +81,39 @@ func Road_gate(c *fiber.Ctx) error {
 	}
 	return c.Status(400).SendString("车场无道闸")
 }
+func Road(c *fiber.Ctx) error{
+	park_id := c.Params("park_id")
+	detail := []models.Road_detail{}
+	database.DB.Raw("select a.id `Road_id`,a.road_gate_type `Road_gate_type`,b.id `Open_id`,b.open_type `Open_gate_type` from road_gate_entity a,open_gate_entity b where b.road_gate_id = a.id and a.park_id = ?",park_id).Scan(&detail)
+	if len(detail) > 0{
+		return c.Status(200).JSON(detail)
+	}
+	return c.Status(400).SendString("车场无道闸")
+}
+func Open_change(c *fiber.Ctx) error{
+	type Parser struct{
+		Id json.Number `json:"id"`//陨石坑
+		Status json.Number `json:"status"`
+	}
+	temp := new(Parser)
+	open_gate := new(models.Open_gate_entity)
+	if err := c.BodyParser(temp);err != nil{
+		return c.Status(400).JSON(err.Error())
+	}
+	v,_ := strconv.ParseInt(string(temp.Id),10,64)
+	open_gate.Id = int(v)
+	v,_ = strconv.ParseInt(string(temp.Status),10,64)
+	open_gate.Open_type = int(v)
+	if open_gate.Open_type == 1{
+		open_gate.Open_type++
+	}else if open_gate.Open_type == 2{
+		open_gate.Open_type--
+	}
+	open_gate.Gmt_modified = time.Now()
+	result := database.DB.Model(&open_gate).Select("open_type","gmt_modified").Updates(open_gate)
+	if result.RowsAffected > 0{
+		return c.Status(200).SendString("更新成功")
+	}
+	return c.Status(400).SendString("更新失败")
+}
+
