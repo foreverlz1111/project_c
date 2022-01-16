@@ -109,12 +109,14 @@ Page({
     wx.showToast({
       title: t,
       icon:"error",
+      mask:true,
       duration:2000
     })
   },
   _return_success_toast:function(t){
     wx.showToast({
       title: t,
+      mask:true,
       icon:"success",
       duration:2000
     })

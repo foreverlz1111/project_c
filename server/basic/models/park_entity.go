@@ -1,6 +1,7 @@
 package models
 import(
 	"time"
+	"gorm-mysql/database"
 )
 type Park_entity struct{
 	Id int `json:"id";gorm:"primaryKey"`
@@ -15,4 +16,7 @@ type Park_entity struct{
 }
 func (Park_entity)TableName()string{
 	return "park_entity"
+}
+func (park *Park_entity)Get_entity(park_id string){
+	database.DB.Where("id = ?",park_id).First(&park)
 }

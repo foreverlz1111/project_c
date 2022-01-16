@@ -1,9 +1,11 @@
 miniprogram/debug/GenerateTestUserSig.js
 miniprogram/debug.log
 miniprogram/project.config.json
+miniprogram/project.private.config.json
 miniprogram_cache
 web_cache
 web
 server/basic/database
+server/basic/sig/compute.go
 *.*~
 *.*#

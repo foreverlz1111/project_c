@@ -1,19 +1,14 @@
 package routes
 
 import (
+	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 	"gorm-mysql/database"
 	"gorm-mysql/models"
 	"log"
-	"time"
-	"encoding/json"
 	"strconv"
+	"time"
 )
-
-type Items struct {
-	r []models.Road_gate_entity `json:"r"`
-	o []models.Open_gate_entity `json:"o"`
-}
 
 func Hello(ctx *fiber.Ctx) error {
 	err := ctx.SendString("服务器准备就绪")
@@ -69,11 +64,13 @@ func Road_gate(c *fiber.Ctx) error {
 	if road_gate != nil {
 		subsql := database.DB.Select("id").Where("park_id = ? ", park_id).Table("road_gate_entity")
 		database.DB.Where("road_gate_id IN (?) ", subsql).Find(&open_gate)
-		log.Println("open gete", open_gate)
+		type Items struct {
+			r []models.Road_gate_entity `json:"r"`
+			o []models.Open_gate_entity `json:"o"`
+		}	
 		item := new(Items)
 		item.r = road_gate
 		item.o = open_gate
-		log.Println(item)
 		out := map[string]interface{}{}
 		out["r"] = item.r
 		out["o"] = item.o
@@ -81,39 +78,58 @@ func Road_gate(c *fiber.Ctx) error {
 	}
 	return c.Status(400).SendString("车场无道闸")
 }
-func Road(c *fiber.Ctx) error{
+func Road(c *fiber.Ctx) error {
 	park_id := c.Params("park_id")
 	detail := []models.Road_detail{}
-	database.DB.Raw("select a.id `Road_id`,a.road_gate_type `Road_gate_type`,b.id `Open_id`,b.open_type `Open_gate_type` from road_gate_entity a,open_gate_entity b where b.road_gate_id = a.id and a.park_id = ?",park_id).Scan(&detail)
-	if len(detail) > 0{
+	database.DB.Raw("select a.id `Road_id`,a.road_gate_type `Road_gate_type`,b.id `Open_id`,b.open_type `Open_gate_type` from road_gate_entity a,open_gate_entity b where b.road_gate_id = a.id and a.park_id = ?", park_id).Scan(&detail)
+	if len(detail) > 0 {
 		return c.Status(200).JSON(detail)
 	}
 	return c.Status(400).SendString("车场无道闸")
 }
-func Open_change(c *fiber.Ctx) error{
-	type Parser struct{
-		Id json.Number `json:"id"`//陨石坑
+func Open_change(c *fiber.Ctx) error {
+	type Parser struct {
+		Id     json.Number `json:"id"` //陨石坑
 		Status json.Number `json:"status"`
 	}
 	temp := new(Parser)
 	open_gate := new(models.Open_gate_entity)
-	if err := c.BodyParser(temp);err != nil{
+	if err := c.BodyParser(temp); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
-	v,_ := strconv.ParseInt(string(temp.Id),10,64)
+	v, _ := strconv.ParseInt(string(temp.Id), 10, 64)
 	open_gate.Id = int(v)
-	v,_ = strconv.ParseInt(string(temp.Status),10,64)
+	v, _ = strconv.ParseInt(string(temp.Status), 10, 64)
 	open_gate.Open_type = int(v)
-	if open_gate.Open_type == 1{
+	if open_gate.Open_type == 1 {
 		open_gate.Open_type++
-	}else if open_gate.Open_type == 2{
+	} else if open_gate.Open_type == 2 {
 		open_gate.Open_type--
 	}
 	open_gate.Gmt_modified = time.Now()
-	result := database.DB.Model(&open_gate).Select("open_type","gmt_modified").Updates(open_gate)
-	if result.RowsAffected > 0{
+	result := database.DB.Model(&open_gate).Select("open_type", "gmt_modified").Updates(open_gate)
+	if result.RowsAffected > 0 {
 		return c.Status(200).SendString("更新成功")
 	}
 	return c.Status(400).SendString("更新失败")
 }
-
+func Fetcher(c *fiber.Ctx) error{
+	park_id := c.Params("park_id")
+	road_id := c.Params("road_id")
+	park := models.Park_entity{}
+	road := models.Road_detail{}
+	park_detail := models.Park_detail{}
+	park.Get_entity(park_id)
+	park_detail.Get_detail(park)
+	road.Get_detail(park_id,road_id)
+	log.Println(park_detail,road)
+	type Items struct {
+		p models.Park_detail `json:"p"`
+		r models.Road_detail `json:"r"`
+	}	
+	item := Items{p:park_detail,r:road,}
+	out := map[string]interface{}{}
+	out["p"] = item.p
+	out["r"] = item.r
+	return c.Status(200).JSON(out)
+}

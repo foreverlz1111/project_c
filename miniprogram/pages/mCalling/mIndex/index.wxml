@@ -6,9 +6,9 @@
   </view>
   <view class='guide-box'>
     <view class="single-box">
-      <image class="icon" mode="cover" src="{{userInfo.avatarUrl}}"></image>
+      <image class="icon" mode="cover" src="{{wxuserInfo.avatarUrl}}"></image>
       <view class="single-content">
-        <view class="label">你好，{{userInfo.nickName}}</view>
+        <view class="label">你好，{{wxuserInfo.nickName}}</view>
       </view>
     </view>
     <view class="box">

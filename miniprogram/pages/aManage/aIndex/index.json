@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "TUI-calling": "../../../components/TUICalling/TUICalling"
+  },
   "navigationBarTitleText": "导航",
   "navigationBarTextStyle": "white",
   "navigationBarBackgroundColor": "#000000"

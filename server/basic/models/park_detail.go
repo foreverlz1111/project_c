@@ -17,6 +17,12 @@ type Park_detail struct {
 }
 
 func (detail *Park_detail) Get_detail(park Park_entity) {
+	detail.Id = park.Id
+	detail.Status = park.Status
+	detail.Gmt_created = park.Gmt_created
+	detail.Gmt_modified = park.Gmt_modified
+	detail.Park_name = park.Park_name
+	detail.Address = park.Address
 	var province string //巨坑
 	var province_id string
 	var city string

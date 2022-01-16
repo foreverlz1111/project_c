@@ -1,4 +1,4 @@
-// room.js
+//Copy from room.js
 // eslint-disable-next-line no-undef
 import {
   genTestUserSig
@@ -9,7 +9,7 @@ const app = getApp();
 Page({
 
   data: {
-    userInfo: {},
+    wxuserInfo: {},
     hasUserInfo: false,
     privateAgree: true,
     config: {
@@ -21,13 +21,14 @@ Page({
     },
     localUserInfo: null,
     remoteUserInfo: {},
-    userID: '',
-    searchResultShow: ''
+    //userID: '',
+    //searchResultShow: ''
   },
 
   onLoad() {
+    wx.$TUIKit.setLogLevel(1);
     this.setData({
-      userInfo: wx.getStorageSync("userinfosync"),
+      wxuserInfo: wx.getStorageSync("wxuserinfosync"),
       hasUserInfo: wx.getStorageSync('hasuserinfo'),
     })
     const {
@@ -66,7 +67,7 @@ Page({
         remoteUserInfo: {
           ...imResponse.data[0]
         },
-        searchResultShow: true,
+        //searchResultShow: true,
       });
     });
   },

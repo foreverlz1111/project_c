@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/aManage/aIndex/index",
     "pages/mLogin/login",
     "pages/aManage/aParking/parking",
-    "pages/aManage/aIndex/index",
+    
     "pages/aLogin/login",
     
     "pages/aManage/aPlus/plus",

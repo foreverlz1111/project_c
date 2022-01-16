@@ -11,12 +11,12 @@ import {
 const app = getApp()
 Page({
   data: {
-    userInfo: {},
+    wxuserInfo: {},
     hasUserInfo: false,
-    refresh_button:true,
-    userID: '6620',
-    // 用户ID硬代码
-
+    refresh_button: true,
+    userID: 'useruser', // 用户ID硬代码
+    park_id: 0,
+    road_id: 0,
     hidden: false,
     privateAgree: true,
     code: '',
@@ -27,7 +27,7 @@ Page({
     statusBarHeight: app.globalData.statusBarHeight,
     info: [{
         name: '车场ID',
-        key: 'park_id',
+        key: 'id',
         value: 0
       },
       {
@@ -37,35 +37,35 @@ Page({
       },
       {
         name: '地址',
-        key: 'park_location',
+        key: 'city',
         value: 'null'
       },
       {
         name: '车场状态',
-        key: 'park_status',
-        value: false
+        key: 'status',
+        value: -1
       },
       {
-        name: '车场道闸',
-        key: 'gate_id',
+        name: '闸口ID',
+        key: 'road_id',
         value: 0
       },
       {
-        name: '道闸类型',
-        key: 'gate_style',
-        value: 'null'
+        name: '闸口类型：',
+        key: 'road_gate_type',
+        value: 1
       },
       {
-        name: '道闸状态',
-        key: 'gate_status',
-        value: true
+        name: '闸口状态：',
+        key: 'open_gate_type',
+        value: 1
       },
     ],
   },
   onLoad(option) {
     this._get_info();
     wx.$TUIKit.setLogLevel(1);
-    /*废弃
+    /*【废弃】
     wx.setBackgroundColor({
       backgroundColor: '#000000',
       success(res){
@@ -73,37 +73,85 @@ Page({
       }
     })
     */
-    this.setData({
-      path: option.path,
-    })
-    wx.setStorage({
-      key: 'path',
-      data: option.path,
-    })
+   /**********************【废弃】获取用户信息
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
       })
     }
+    *********************/
+    this.setData({
+      park_id: option.park_id,
+      road_id: option.road_id
+    });
+    this.get_park();
   },
-  _check_server(){
-    wx.request({
-      url: 'http://lzypro.com:3000/hello',
-      success(res){
-        console.log(res.data)
+  get_park() {
+    var _this = this;
+    var park_id = _this.data.park_id;
+    var road_id = _this.data.road_id;
+    var _info = _this.data.info
+    wx.showLoading({
+      title: '加载中',
+      success() {
+        wx.request({
+          url: 'http://lzypro.com:3000/fetcher/' + park_id + '/' + road_id,
+          success(res) {
+            if (res.statusCode == 200) {
+              _info.forEach(element => {
+                for (let n in res.data.p) {
+                  if (n == element.key) {
+                    element.value = res.data.p[n];
+                    break;
+                  }
+                }
+                for (let n in res.data.r) {
+                  if (n == element.key) {
+                    element.value = res.data.r[n];
+                  }
+                }
+              });
+              wx.hideLoading({
+                success: (res) => {},
+              });
+              _this.setData({
+                info: _info
+              })
+            }
+            if (res.data.statusCode == 400) {
+              _this._return_error_toast(res.data);
+            }
+          },
+          fail() {
+            _this._return_error_toast("网络不好")
+          }
+        })
       }
     })
   },
-  _get_info(){
+  _check_server() {
+    var _this = this;
+    wx.request({
+      url: 'http://lzypro.com:3000/hello',
+      success(res) {
+        console.log(res.data);
+      },
+      fail() {
+        _this._return_error_toast("服务器不行哦");
+      }
+    })
+  },
+  _get_info() {
     /***********
+     * 【废弃】
      *         POST：
                 1.go使用time.Time类型，微信使用timestamp，需要将timestamp传入服务器运算后得到time.Time类型
-                2.go的time.Time类型与mysql的timestamp类型不冲突，中间件可以自适应
+                2.go的time.Time类型与mysql的timestamp类型不冲突
     var my_timestamp = Date.parse(new Date());
     my_timestamp = my_timestamp / 1000;
     console.log(my_timestamp);
     wx.request({
-      url: 'http://10.0.2.2:3000/insertone/'+my_timestamp,
+      url: 'http://lzypro.com:3000/time/'+my_timestamp,
       method:'POST',
       data:{
         name:"Eva",
@@ -112,31 +160,24 @@ Page({
     })
     ***********/
   },
-  _refresh_info(){
-    //从showToast()改用showLoading()
-    this._get_info();
-    this.setData({refresh_button : false}) 
-    wx.showLoading({
-      title: '加载中',
-      icon:'success',
-      duration:3000,
-      mask:true
+  _refresh_info() {
+    //改用showLoading()
+    this.get_park()
+    this.setData({
+      refresh_button: false
     })
     setTimeout(() => {
-      this.setData({refresh_button : true}) 
-    }, 5000);
+      this.setData({
+        refresh_button: true
+      })
+    }, 6000);
   },
-  _refresh_info_error(){
-    wx.showToast({
-      title: '请稍后刷新',
-      icon:'error',
-      duration:1000
-    })
-  },
-  _getUserProfile(e) {
+  _getUserProfile() {
+    var _this = this;
     //每次通过该接口获取用户个人信息均需用户确认
+    //文档不全
     wx.getUserProfile({
-      desc: '选择用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      desc: '选择用户信息', // 没有实质用处
       success: (res) => {
         wx.$TUIKit.login({
             userID: app.globalData.userInfo.userID,
@@ -146,22 +187,18 @@ Page({
         //console.log(res)
         this.setData({
             //微信用户的头像、昵称等信息
-            userInfo: res.userInfo,
+            wxuserInfo: res.userInfo,
             hasUserInfo: true
           }),
           wx.setStorage({
-            key: "userinfosync",
+            key: "wxuserinfosync",
             data: res.userInfo,
           })
         wx.setStorage({
           key: "hasuserinfo",
           data: true,
           success() {
-            wx.showToast({
-              title: '请稍等',
-              icon: 'loading',
-              duration: 2000,
-            });
+            _this._return_success_toast("请稍等");
             setTimeout(() => {
               wx.redirectTo({
                 url: '../mCalling/mIndex/index',
@@ -203,5 +240,23 @@ Page({
       userInfo: app.globalData.userInfo,
     })
     this._getUserProfile();
+  },
+
+  _return_error_toast: function (t) {
+    wx.showToast({
+      title: t,
+      icon: "error",
+      mask: true,
+      duration: 2000
+    })
+  },
+
+  _return_success_toast: function (t) {
+    wx.showToast({
+      title: t,
+      icon: "success",
+      mask: true,
+      duration: 2000
+    })
   },
 })

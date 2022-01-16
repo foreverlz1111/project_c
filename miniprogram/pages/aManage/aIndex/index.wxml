@@ -1,4 +1,5 @@
 <!--pages/aManage/aIndex/index.wxml-->
+<TUI-calling id="TRTCCalling-component" config="{{config}}" backgroundMute="{{true}}"></TUI-calling>
 <view class="container">
   <view class="tip">
   <view>
@@ -8,7 +9,7 @@
     <label>所属停车场：{{park_entity.city}}{{park_entity.park_name}}</label>
   </view>
       <view
-      ><label>接受视频来电：</label><switch bindchange="switch_ready" checked="{{ready_call}}"></switch>
+      ><label>接受视频来电：</label><switch bindtap="switch_ready" disabled="true" checked="{{ready_call}}"></switch>
       </view>
       
   </view>

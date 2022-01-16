@@ -145,6 +145,7 @@ wx.showModal({
   _return_error_toast:function(t){
     wx.showToast({
       title: t,
+      mask:true,
       icon:"error",
       duration:2000
     })
@@ -152,6 +153,7 @@ wx.showModal({
   _return_success_toast:function(t){
     wx.showToast({
       title: t,
+      mask:true,
       icon:"success",
       duration:2000
     })

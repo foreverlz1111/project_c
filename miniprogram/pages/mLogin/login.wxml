@@ -9,13 +9,26 @@
     </view>
     <view class="box">
       <view class="list">
-      <view class="refresh" bind:tap="{{refresh_button?'_refresh_info':'_refresh_info_error'}}">
-      <image mode="aspectFit"  src="{{refresh_button?'../../static/images/button-refresh-arrow.png':'../../static/images/button-refresh-arrow-false.png'}}"></image></view>
+        <view class="refresh" bind:tap="{{refresh_button?'_refresh_info':'_refresh_info_error'}}">
+          <image mode="aspectFit" src="{{refresh_button?'../../static/images/button-refresh-arrow.png':'../../static/images/button-refresh-arrow-false.png'}}"></image>
+        </view>
         <view class="list-item" wx:for="{{info}}" wx:key="index" data-item="{{item}}">
           <label class="list-item-label">{{item.name}}：
-            <text wx:if="{{item.key !== 'park_status' && item.key !== 'gate_status' }}">{{item.value}}</text>
-            <text wx:if="{{item.key === 'gate_status' }}" class="{{item.value?'':'stop'}}">{{item.value ? '正常':'暂停'}}</text>
-            <text wx:if="{{item.key === 'park_status' }}" class="{{item.value?'':'stop'}}">{{item.value ? '正常':'暂停'}}</text>
+            <block wx:if="{{item.key !== 'status' && item.key !== 'road_gate_type' && item.key !== 'open_gate_type' }}">
+              <text>{{item.value}}</text>
+            </block>
+            <block wx:elif="{{item.key === 'status' }}">
+              <text  class="{{item.value==0?'':'stop'}}">{{item.value==0 ? '正常':'停运'}}</text>
+            </block>
+            <block wx:elif="{{item.key === 'road_gate_type' }}">
+              <text>{{item.value==1?'进口':(item.value==2?'出口':'进出口')}}</text>
+            </block>
+            <block  wx:elif="{{item.key === 'open_gate_type' }}">
+             <text  class="{{item.value==1?'':'stop'}}">{{item.value==1 ? '开闸':'关闸'}}</text>
+            </block>
+            <block wx:elif="{{item.key === 'open_gate_type' }}">
+            <text  class="{{item.value==1?'':'stop'}}">{{item.value==1 ? '开闸':'关闸'}}</text>
+            </block>
           </label>
         </view>
       </view>
