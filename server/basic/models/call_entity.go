@@ -11,7 +11,7 @@ type Call_entity struct{
 	Account_id int `json:"account_id"`
 	Road_gate_id int `json:"road_gate_id"`
 	Call_status int `json:"call_status"`
-	Connect_account int `json:"connect_account"`
+	Connect_account_type int `json:"connect_account_type"`
 	Call_reason string `json:"call_reason"`
 	Remark string `json:"remark"`
 }

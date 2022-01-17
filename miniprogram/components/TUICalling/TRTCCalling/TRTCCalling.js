@@ -120,6 +120,7 @@ class TRTCCalling {
 
   // 新的邀请回调事件
   handleNewInvitationReceived(event) {
+    
     console.log(TAG_NAME, 'onNewInvitationReceived', `callStatus：${this.data.callStatus === CALL_STATUS.CALLING || this.data.callStatus === CALL_STATUS.CONNECTED}, inviteID:${event.data.inviteID} inviter:${event.data.inviter} inviteeList:${event.data.inviteeList} data:${event.data.data}`);
     const { data: { inviter, inviteeList, data, inviteID, groupID } } = event;
     const inviteData = JSON.parse(data);
@@ -387,6 +388,7 @@ class TRTCCalling {
   _addTSignalingEvent() {
     // 新的邀请回调事件
     wx.$TSignaling.on(TSignaling.EVENT.NEW_INVITATION_RECEIVED, this.handleNewInvitationReceived, this);
+    
     // 发出的邀请收到接受的回调
     wx.$TSignaling.on(TSignaling.EVENT.INVITEE_ACCEPTED, this.handleInviteeAccepted, this);
     // 发出的邀请收到拒绝的回调

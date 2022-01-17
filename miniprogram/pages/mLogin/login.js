@@ -84,8 +84,66 @@ Page({
       park_id: option.park_id,
       road_id: option.road_id
     });
-    this.get_park();
+    wx.setStorage({
+      key:"park_id",
+      data:this.data.park_id
+    });
+    wx.setStorage({
+      key:"road_id",
+      data:this.data.road_id
+    });
+    //this.get_park();
+    setTimeout(() => {
+      //this.test_call()
+      //this.test_accept()
+      //this.test_reject()
+    }, 1000);
   },
+  test_call(){
+    let _this = this;
+    let park_id = _this.data.park_id;
+    let road_id = _this.data.road_id;
+    wx.request({
+      url: 'http://lzypro.com:3000/call',
+      method:'PUT',
+      data:{
+        "park_id" :park_id,
+        "road_gate_id" : road_id,
+      },
+      success(res){
+        console.log(res.data)
+      }
+    })
+  },
+  test_accpet(){
+    let _this = this;
+    let account_id = 2;
+    wx.request({
+      url: 'http://lzypro.com:3000/call_accept',
+      method:'PUT',
+      data:{
+        "account_id":account_id
+      },
+      success(res){
+        console.log(res.data)
+      }
+    })
+  },
+  test_reject(){
+    let _this = this;
+    let account_id = 2;
+    wx.request({
+      url: 'http://lzypro.com:3000/call_accept',
+      method:'PUT',
+      data:{
+        "account_id":account_id
+      },
+      success(res){
+        console.log(res.data)
+      }
+    })
+  },
+
   get_park() {
     var _this = this;
     var park_id = _this.data.park_id;
@@ -179,12 +237,12 @@ Page({
     wx.getUserProfile({
       desc: '选择用户信息', // 没有实质用处
       success: (res) => {
-        wx.$TUIKit.login({
-            userID: app.globalData.userInfo.userID,
-            userSig: app.globalData.userInfo.userSig,
-          }).then(() => {})
-          .catch(() => {});
-        //console.log(res)
+        //不需要登录IM，接下来登录TRTC服务器即可
+        // wx.$TUIKit.login({
+        //     userID: app.globalData.userInfo.userID,
+        //     userSig: app.globalData.userInfo.userSig,
+        //   }).then(() => {})
+        //   .catch(() => {});
         this.setData({
             //微信用户的头像、昵称等信息
             wxuserInfo: res.userInfo,

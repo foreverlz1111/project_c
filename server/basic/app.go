@@ -17,11 +17,21 @@ func _SetRoutes(app *fiber.App){
 	app.Put("/open_change",routes.Open_change)//开关闸
 	app.Get("/fetcher/:park_id/:road_id",routes.Fetcher)//返回车场、道闸信息
 }
+func _SetCall(app *fiber.App){
+	app.Put("/call/",routes.Call)
+	//app.Get("/call_account/:park_id",routes.Call_account)//返回关联账号//
+	app.Put("/call_accept/",routes.Call_accept)
+	//app.Put("/call_handup",routes.Call_handup)
+	app.Put("/call_reject",routes.Call_reject)
+	//app.Get("/call_entity",routes.Call_entity)
+	//app.Put("/call_entity/update",route.Call_entity_update)
+}
 
 func main(){
 	database.ConnectDB()
 	app := fiber.New()
 	_SetRoutes(app)
+	_SetCall(app)
 	app.Use(cors.New())
 	app.Use(func(c *fiber.Ctx)error{
 		return c.SendStatus(404)//空页面

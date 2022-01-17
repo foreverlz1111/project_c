@@ -70,9 +70,9 @@ App({
       title: '您被踢下线',
       icon: 'error',
     })
-    wx.navigateTo({
-      url: './pages/TUI-Login/login',
-    })
+    // wx.navigateTo({
+    //   url: './pages/TUI-Login/login',
+    // })
   },
 
   onTIMError() {},

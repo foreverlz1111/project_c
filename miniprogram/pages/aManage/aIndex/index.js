@@ -141,19 +141,19 @@ Page({
       title: '加载中...',
     });
     let _this = this;
-    const userID = _this.data.userID
+    const userID = _this.data.userID+_this.data.account_entity.account
     const userSig = genTestUserSig(userID).userSig
     logger.log(`TUI-login | login  | userSig:${userSig} userID:${userID}`)
     app.globalData.userInfo = {
       userSig,
       userID,
-    }
-    console.log("app.globalData.userInfo.userID,", app.globalData.userInfo.userID)
-    wx.$TUIKit.login({
-        userID: app.globalData.userInfo.userID,
-        userSig: app.globalData.userInfo.userSig,
-      }).then(() => {})
-      .catch(() => {});
+    };
+    console.log("值：app.globalData.userInfo.userID,", app.globalData.userInfo.userID);
+    // wx.$TUIKit.login({
+    //     userID: app.globalData.userInfo.userID,
+    //     userSig: app.globalData.userInfo.userSig,
+    //   }).then(() => {})
+    //   .catch(() => {});
     const {
       config
     } = _this.data;
@@ -167,6 +167,9 @@ Page({
     }, () => {
       _this.TRTCCalling = _this.selectComponent('#TRTCCalling-component');
       _this.TRTCCalling.init();
+      setTimeout(() => {
+        
+      }, 1000);
       //_isLogin();
     });
     wx.hideLoading({

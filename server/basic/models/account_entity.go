@@ -1,6 +1,7 @@
 package models
 import(
 	"time"
+	"gorm-mysql/database"
 )
 type Account_entity struct{
 	Id int `json:"id";gorm:"primaryKey"`
@@ -12,4 +13,7 @@ type Account_entity struct{
 }
 func (Account_entity)TableName()string{
 	return "account_entity"
+}
+func (account_entity *Account_entity)Get_account_entity(id int){
+	database.DB.Where("status = 0 and id = ?",id).First(&account_entity)
 }

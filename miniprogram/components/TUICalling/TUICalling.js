@@ -46,6 +46,7 @@ Component({
     },
     // 新的邀请回调事件
     handleNewInvitationReceived(event) {
+      
       this.initCall();
       console.log(`${TAG_NAME}, handleNewInvitationReceived, event${JSON.stringify(event)}`);
       this.data.config.type = event.data.inviteData.callType;
@@ -192,34 +193,50 @@ Component({
     },
     // 增加 tsignaling 事件监听
     _addTSignalingEvent() {
+      
       // 被邀请通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.INVITED, this.handleNewInvitationReceived, this);
+      
+
       // 用户接听
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.USER_ACCEPT, this.handleUserAccept, this);
+      
       // 用户进入通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.USER_ENTER, this.handleUserEnter, this);
+
       // 用户离开通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.USER_LEAVE, this.handleUserLeave, this);
+
       // 用户离开通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.USER_UPDATE, this.handleUserUpdate, this);
+
       // 用户拒绝通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.REJECT, this.handleInviteeReject, this);
+
       // 用户无响应
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.NO_RESP, this.handleNoResponse, this);
+
       // 用户忙线
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.LINE_BUSY, this.handleLineBusy, this);
+
       // 通话被取消
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.CALLING_CANCEL, this.handleCallingCancel, this);
+
       // 通话超时未应答
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.CALLING_TIMEOUT, this.handleCallingTimeout, this);
+
       // 通话结束
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.CALL_END, this.handleCallingEnd, this);
+
       // SDK Ready 回调
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.SDK_READY, this.handleSDKReady, this);
+
       // 被踢下线
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.KICKED_OUT, this.handleKickedOut, this);
+
       // 切换通话模式
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.CALL_MODE, this.handleCallMode, this);
+      
     },
     // 取消 tsignaling 事件监听
     _removeTSignalingEvent() {
@@ -458,6 +475,7 @@ Component({
           userID: this.data.config.userID,
           userSig: this.data.config.userSig,
         });
+        //console.log("初始化TRTCCalling");
         this._addTSignalingEvent();
         return res;
       } catch (error) {
