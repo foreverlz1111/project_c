@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "TUI-calling": "/components/TUICalling/TUICalling"
+     "TUI-calling": "/components/TUICalling/TUICalling"
   },
   "navigationBarTitleText": "会话准备",
   "navigationBarTextStyle": "white",

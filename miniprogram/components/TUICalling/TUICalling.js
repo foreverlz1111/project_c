@@ -37,9 +37,20 @@ Component({
     remoteUsers: [], // 远程用户资料
     screen: 'pusher', // 视屏通话中，显示大屏幕的流（只限1v1聊天
     soundMode: 'speaker', // 声音模式 听筒/扬声器
+    accountID:0,
+    park_id:0,
+
   },
 
   methods: {
+    set_parkdata(accountid,parkid) {
+      console.log("accountid,parkid"+accountid, parkid);
+      this.setData({
+        accountID:accountid,
+        park_id:parkid
+      })
+      console.log("this.data.accountID, this.data.park_id"+this.data.accountID, this.data.park_id);
+      },
     initCall() {
       // 收起键盘
       wx.hideKeyboard();
@@ -167,7 +178,8 @@ Component({
       }
       wx.showToast({
         title: '通话结束',
-        duration: 800,
+        mask:true,
+        duration: 1800,
       });
     },
 
@@ -196,11 +208,8 @@ Component({
       
       // 被邀请通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.INVITED, this.handleNewInvitationReceived, this);
-      
-
       // 用户接听
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.USER_ACCEPT, this.handleUserAccept, this);
-      
       // 用户进入通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.USER_ENTER, this.handleUserEnter, this);
 

@@ -23,7 +23,9 @@ Page({
     },
     localUserInfo: null,
     remoteUserInfo: {},
-    remoteUserID: '',
+    remoteUserAccount: '',
+    remoteUserID: 0,
+    user_accept: false,
     //userID: '',
     //searchResultShow: ''
   },
@@ -44,39 +46,19 @@ Page({
     config.userSig = genTestUserSig(config.userID).userSig;
     config.type = 2; // 视频聊天 参数2
     config.tim = wx.$TUIKit;
+    //this.park_params.park_id = this.data.park_id;
     this.setData({
       config
     }, () => {
       this.TRTCCalling = this.selectComponent('#TRTCCalling-component');
-      /***** 
-       * Correct usages:
-       *  console.log(" this.TRTCCalling == "+this.TRTCCalling);
-       * console.log("config sdkAppID== " + config.sdkAppID);
-       * console.log("config userID== " + config.userID);
-       * console.log("config type== " + config.type);
-       * Incorrect usage:
-       * console.log("config tim== " + config.tim);
-       * //this.config.tim == (privete) null
-       * Initual for login,Check if login before init():
-       * Or this.TRTCCalling.init(); -->kickout() -->toast()
-       *****/
-      //
       this.TRTCCalling.init();
-      //_isLogin();
-    });
-    wx.$TUIKit.getUserProfile({
-      userIDList: ['user0']
-    }).then((imResponse) => {
-      console.log(imResponse.data[0]);
-      // this.setData({
-      //   remoteUserInfo: {
-      //     ...imResponse.data[0]
-      //   },
-      //   //searchResultShow: true,
-      // });
+      /***** 
+       * //this.config.tim == (privete) null
+       * init() had included login(),addListen()
+       *****/
+      // 
     });
   },
-
   linkTo() {
     const url = 'https://www.aliyun.com'
     wx.navigateTo({
@@ -110,6 +92,7 @@ Page({
     })
   },
   onUpload() {
+    this.RemoveTRTCCallingListen();
     wx.showToast({
       title: '重新登陆',
       icon: 'none',
@@ -126,26 +109,51 @@ Page({
     wx.showLoading({
       title: '正在连接中...',
     })
-    //if(wx.$TUIKit)
     this.get_call_detail().then((s) => {
-      if (_this.data.remoteUserID != '') {
-        wx.hideLoading({})
-        this.TRTCCalling.call({
-          userID: "客服" + this.data.remoteUserID,
+      _this.setData({
+        UserAccept: false
+      })
+      if (_this.data.remoteUserAccount != '') {
+        wx.hideLoading({});
+        //wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.CALL_END, this.CallingEnd(this.data.remoteUserAccount), this);//通话结束[超时、取消都会回到这个状态，也就是通话的最终态]
+        //wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.INVITATION_TIMEOUT, this.CallingTimeout(this.data.remoteUserID), this); //通话超时-->已取消
+        //wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.REJECT, this.handleInviteeReject, this);//客服方拒绝了-->已取消
+        //wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.CALLING_CANCEL, this.UserCancel(this.data.remoteUserID), this); // 通话取消[考虑手动的情况下]-->已取消?已挂断
+        //wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.USER_ACCEPT, this.UserAccept(this.data.remoteUserID), this); //客服接听-->通话中
+        //this.TRTCCalling.on(this.TRTCCalling.EVENT.USER_ACCEPT, this.UserAccept(this.data.remoteUserID), this); //客服接听-->通话中
+        this.TRTCCalling.set_parkdata(this.data.remoteUserID, this.data.park_id);
+        setTimeout(() => {
+          //应把待数据传入组件再拨通，500ms等待
+           this.TRTCCalling.call({
+          userID: "客服" + this.data.remoteUserAccount,
           type: 2
         });
+        }, 500);
+       
       }
-    }).catch((e) => {
-
+    }).catch((e) => {})
+  },
+  UserCancel(id) {
+    wx.request({
+      url: 'http://lzypro.com:3000/call_reject',
+      method: 'PUT',
+      data: {
+        "account_id": id,
+        "remark": "用户主动取消"
+      },
+      success(res) {
+        console.log(res.data)
+      }
     })
-
   },
   get_call_detail() {
     let _this = this;
     let park_id = _this.data.park_id;
     let road_id = _this.data.road_id;
     let remoteUserID = _this.remoteUserID
+    let remoteUserAccount = _this.remoteUserAccount;
     let wxuserInfo = _this.data.wxuserInfo;
+    let Parkparams = _this.Parkparams
     let promise = new Promise(function (s, e) {
       wx.request({
         url: 'http://lzypro.com:3000/call',
@@ -159,7 +167,8 @@ Page({
           if (res.statusCode == 200) {
             s(res)
             _this.setData({
-              remoteUserID: res.data.account
+              remoteUserID: res.data.id,
+              remoteUserAccount: res.data.account,
             })
             if (res.data.statusCode == 400) {
               e(res)
@@ -186,6 +195,33 @@ Page({
       icon: "success",
       mask: true,
       duration: 2000
+    })
+  },
+  callingTimeoutEvent(id) {
+    wx.request({
+      url: 'http://lzypro.com:3000/call_reject',
+      method: 'PUT',
+      data: {
+        "account_id": id,
+        "remark": "用户拨打超时"
+      },
+      success(res) {
+        console.log(res.data)
+      }
+    })
+    console.log('无应答超时')
+  },
+  userEnterEvent(id) {
+    wx.request({
+      url: 'http://lzypro.com:3000/call_accept',
+      method: 'PUT',
+      data: {
+        "account_id": id,
+        "remark": "客服已接听"
+      },
+      success(res) {
+        console.log(res.data)
+      }
     })
   },
 });

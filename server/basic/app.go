@@ -23,7 +23,7 @@ func _SetCall(app *fiber.App){
 	app.Put("/call_accept/",routes.Call_accept)
 	//app.Put("/call_handup",routes.Call_handup)
 	app.Put("/call_reject",routes.Call_reject)
-	//app.Get("/call_entity",routes.Call_entity)
+	//app.Get("/call_entity/:park_id/:account_id",routes.Call_entity)
 	//app.Put("/call_entity/update",route.Call_entity_update)
 }
 

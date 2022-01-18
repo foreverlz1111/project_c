@@ -1,5 +1,10 @@
 <view class="container">
   <TUI-calling id="TRTCCalling-component" config="{{config}}" backgroundMute="{{true}}"></TUI-calling>
+  <!-- <TRTCCalling 
+        id="TRTCCalling-component"
+        config="{{trtcConfig}}"
+        backgroundMute="{{true}}"
+    ></TRTCCalling> -->
   <view class="title">
     <image class="btn-goback" src="../../../static/images/back.png" bind:tap="onBack" />
     <text>准备会话</text>
