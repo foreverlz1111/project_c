@@ -67,7 +67,7 @@ func Road_gate(c *fiber.Ctx) error {
 		type Items struct {
 			r []models.Road_gate_entity `json:"r"`
 			o []models.Open_gate_entity `json:"o"`
-		}	
+		}
 		item := new(Items)
 		item.r = road_gate
 		item.o = open_gate
@@ -113,7 +113,7 @@ func Open_change(c *fiber.Ctx) error {
 	}
 	return c.Status(400).SendString("更新失败")
 }
-func Fetcher(c *fiber.Ctx) error{
+func Fetcher(c *fiber.Ctx) error {
 	park_id := c.Params("park_id")
 	road_id := c.Params("road_id")
 	park := models.Park_entity{}
@@ -121,13 +121,13 @@ func Fetcher(c *fiber.Ctx) error{
 	park_detail := models.Park_detail{}
 	park.Get_entity(park_id)
 	park_detail.Get_detail(park)
-	road.Get_detail(park_id,road_id)
-	log.Println(park_detail,road)
+	road.Get_detail(park_id, road_id)
+	log.Println(park_detail, road)
 	type Items struct {
 		p models.Park_detail `json:"p"`
 		r models.Road_detail `json:"r"`
-	}	
-	item := Items{p:park_detail,r:road,}
+	}
+	item := Items{p: park_detail, r: road}
 	out := map[string]interface{}{}
 	out["p"] = item.p
 	out["r"] = item.r

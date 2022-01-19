@@ -18,12 +18,89 @@ Page({
       account_entity: wx.getStorageSync('account_entity'),
       park_entity: wx.getStorageSync('park_entity'),
     });
-    this.get_record()
+    wx.showLoading({
+      title: '加载中~ ~ ~',
+    })
+    setTimeout(() => {
+      this.get_record().then((s) => {
+        console.log(s)
+        this.setData({
+          record: s
+        });
+        wx.hideLoading({
+          success: (res) => {},
+        })
+      }).catch((e) => {
+        console.log(e);
+      })
+    }, 800);
+  },
+  edit_remark(event) {
+    let _remark_id = event.currentTarget.id;
+    let _remark = event.currentTarget.dataset.remark;
+    let _this = this;
+    wx.showModal({
+      cancelColor: 'cancelColor',
+      content: _remark,
+      editable: true,
+      success(s) {
+        if (s.confirm) {
+          wx.showModal({
+            title: "是否修改为 : ",
+            content: s.content,
+            cancelColor: 'cancelColor',
+            success(sc) {
+              if (sc.confirm) {
+                if (s.content == _remark) {
+                  _this._return_success_toast("没有修改");
+                } else {
+                  wx.showLoading({
+                    title: '保存中 ~ ~',
+                  })
+                  _this.save_remark(_remark_id, s.content).then((res) => {
+                    if (res.statusCode == 200) {
+                      _this.get_record().then((refresh) => {
+                        _this.setData({
+                          record: refresh,
+                        })
+                        _this._return_success_toast(res.data);
+                      });
+                    } else if (res.statusCode == 400) {
+                      _this._return_error_toast(res.data)
+                    }
+                  })
+                }
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+  save_remark(id, remark) {
+    let _this = this;
+    let promise = new Promise(function (s, e) {
+      wx.request({
+        url: 'http://lzypro.com:3000/call_entity/update/remark/',
+        method: "PUT",
+        data: {
+          "id": id,
+          "remark": remark
+        },
+        success(res) {
+          s(res);
+        },
+        fail() {
+          _this._return_error_toast("网络不行哦");
+        }
+      })
+    })
+    return promise;
   },
   get_record() {
     let _this = this;
-    let _park = _this.park_entity;
-    let _account = _this.account_entity
+    let _park = _this.data.park_entity;
+    let _account = _this.data.account_entity;
     let promise = new Promise(function (s, e) {
       wx.request({
         url: 'http://lzypro.com:3000/call_entity/' + _park.id + '/' + _account.id,
@@ -31,17 +108,18 @@ Page({
         success(res) {
           if (res.statusCode == 200) {
             // wx.setStorage({ key : "road_gate",data : res.data.r});
-            _this.setData({
-              record: res.data,
-            })
+            // _this.setData({
+            //   record: res.data,
+            // })
             s(res.data)
           } else if (res.statusCode == 400) {
             _this._return_error_toast(res.data)
+            e(res.data);
           }
-          s(res)
         },
         fail() {
           _this._return_error_toast("请求超时");
+
         }
       })
     })

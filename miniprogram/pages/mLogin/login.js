@@ -64,6 +64,9 @@ Page({
   },
   onLoad(option) {
     this._get_info();
+    wx.hideHomeButton({
+      success: (res) => {},
+    })
     wx.$TUIKit.setLogLevel(1);
     /*【废弃】
     wx.setBackgroundColor({
@@ -287,16 +290,16 @@ Page({
   },
   //登录IM服务器，获取微信用户信息
   login() {
-    const userID = this.data.userID
-    const userSig = genTestUserSig(userID).userSig
-    logger.log(`TUI-login | login  | userSig:${userSig} userID:${userID}`)
-    app.globalData.userInfo = {
-      userSig,
-      userID,
-    }
-    setTokenStorage({
-      userInfo: app.globalData.userInfo,
-    })
+    //const userID = this.data.userID
+    //const userSig = genTestUserSig(userID).userSig
+    // logger.log(`TUI-login | login  | userSig:${userSig} userID:${userID}`)
+    // app.globalData.userInfo = {
+    //   userSig,
+    //   userID,
+    // }
+    // setTokenStorage({
+    //   userInfo: app.globalData.userInfo,
+    // })
     this._getUserProfile();
   },
 

@@ -37,27 +37,27 @@ Component({
     remoteUsers: [], // 远程用户资料
     screen: 'pusher', // 视屏通话中，显示大屏幕的流（只限1v1聊天
     soundMode: 'speaker', // 声音模式 听筒/扬声器
-    accountID:0,
-    park_id:0,
+    accountID: 0,
+    park_id: 0,
 
   },
 
   methods: {
-    set_parkdata(accountid,parkid) {
-      console.log("accountid,parkid"+accountid, parkid);
+    set_parkdata(accountid, parkid) {
+      console.log("accountid,parkid" + accountid, parkid);
       this.setData({
-        accountID:accountid,
-        park_id:parkid
+        accountID: accountid,
+        park_id: parkid
       })
-      console.log("this.data.accountID, this.data.park_id"+this.data.accountID, this.data.park_id);
-      },
+      console.log("this.data.accountID, this.data.park_id" + this.data.accountID, this.data.park_id);
+    },
     initCall() {
       // 收起键盘
       wx.hideKeyboard();
     },
     // 新的邀请回调事件
     handleNewInvitationReceived(event) {
-      
+
       this.initCall();
       console.log(`${TAG_NAME}, handleNewInvitationReceived, event${JSON.stringify(event)}`);
       this.data.config.type = event.data.inviteData.callType;
@@ -71,10 +71,23 @@ Component({
 
     // 用户接听
     handleUserAccept(event) {
+      let _this = this;
       console.log(`${TAG_NAME}, handleUserAccept, event${JSON.stringify(event)}`);
       this.setData({
         callStatus: 'connection',
       });
+      //2通话中
+        wx.request({
+          url: 'http://lzypro.com:3000/call_accept',
+          method: 'PUT',
+          data: {
+            "account_id": _this.data.accountID,
+            "remark": "通话已被接通"
+          },
+          success(res) {
+            console.log(res.data);
+          }
+        })
     },
 
     // 远端用户进入通话
@@ -168,6 +181,20 @@ Component({
     },
     // 通话结束
     handleCallingEnd(event) {
+      //3已挂断
+      let _this = this;
+      console.log("_this.data.isSponsor",_this.data.isSponsor);
+        wx.request({
+          url: 'http://lzypro.com:3000/call_reject',
+          method: 'PUT',
+          data: {
+            "account_id": _this.data.accountID,
+            "remark": "通话已挂断"
+          },
+          success(res) {
+            console.log(res.data);
+          }
+        });
       console.log(`${TAG_NAME}, handleCallingEnd`);
       console.log(event);
       this.reset();
@@ -178,9 +205,10 @@ Component({
       }
       wx.showToast({
         title: '通话结束',
-        mask:true,
+        mask: true,
         duration: 1800,
       });
+      
     },
 
     // SDK Ready 回调
@@ -205,7 +233,7 @@ Component({
     },
     // 增加 tsignaling 事件监听
     _addTSignalingEvent() {
-      
+
       // 被邀请通话
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.INVITED, this.handleNewInvitationReceived, this);
       // 用户接听
@@ -245,7 +273,7 @@ Component({
 
       // 切换通话模式
       wx.$TRTCCalling.on(wx.$TRTCCalling.EVENT.CALL_MODE, this.handleCallMode, this);
-      
+
     },
     // 取消 tsignaling 事件监听
     _removeTSignalingEvent() {
@@ -287,7 +315,10 @@ Component({
      */
     async call(params) {
       this.initCall();
-      wx.$TRTCCalling.call({ userID: params.userID, type: params.type }).then((res) => {
+      wx.$TRTCCalling.call({
+        userID: params.userID,
+        type: params.type
+      }).then((res) => {
         this.data.config.type = params.type;
         this.getUserProfile([params.userID]);
         this.setData({
@@ -311,7 +342,11 @@ Component({
      */
     async groupCall(params) {
       this.initCall();
-      wx.$TRTCCalling.groupCall({ userIDList: params.userIDList, type: params.type, groupID: params.groupID }).then((res) => {
+      wx.$TRTCCalling.groupCall({
+        userIDList: params.userIDList,
+        type: params.type,
+        groupID: params.groupID
+      }).then((res) => {
         this.data.config.type = params.type;
         this.getUserProfile(params.userIDList);
         this.setData({
@@ -380,7 +415,9 @@ Component({
     },
     // 呼叫中的事件处理
     handleCallingEvent(data) {
-      const { name } = data.detail;
+      const {
+        name
+      } = data.detail;
       switch (name) {
         case 'accept':
           this.accept();
@@ -412,7 +449,10 @@ Component({
     // 通话中的事件处理
     handleConnectedEvent(data) {
       console.log(`${TAG_NAME}, handleVideoEvent--`, data);
-      const { name, event } = data.detail;
+      const {
+        name,
+        event
+      } = data.detail;
       switch (name) {
         case 'toggleViewSize':
           this.toggleViewSize(event);
@@ -468,7 +508,9 @@ Component({
 
     // 获取用户资料
     async getUserProfile(userList) {
-      const imResponse = await this.getTim().getUserProfile({ userIDList: userList });
+      const imResponse = await this.getTim().getUserProfile({
+        userIDList: userList
+      });
       this.setData({
         remoteUsers: imResponse.data,
       });
@@ -509,8 +551,7 @@ Component({
     created() {
 
     },
-    attached() {
-    },
+    attached() {},
     ready() {
       if (!wx.$TRTCCalling) {
         wx.$TRTCCalling = new TRTCCalling({
@@ -524,16 +565,13 @@ Component({
     detached() {
       this.reset();
     },
-    error() {
-    },
+    error() {},
   },
   pageLifetimes: {
     show() {
 
     },
-    hide() {
-    },
-    resize() {
-    },
+    hide() {},
+    resize() {},
   },
 });

@@ -21,6 +21,9 @@
         <view class="list-item">
           <label class="list-item-label">“1这是一段列表内的文本”</label><text class="link" bindtap="linkTo">“跳转链接”</text>
           <label class="list-item-label">“2这是一段列表内的文本”</label>
+          <!-- <label class="list-item-label">“选择通话原因”</label> -->
+          <!-- <picker range="{{pick}}"value="{{pick_index}}" bindchange="pick_change"></picker> -->
+          
         </view>
       </view>
       <view class="private-protocol-box" bindtap="onAgreePrivateProtocol">

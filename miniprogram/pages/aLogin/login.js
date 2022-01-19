@@ -92,8 +92,8 @@ Page({
           solve(res)
         },
         fail(){
-          _this._return_error_toast("登录问题");
-          reject("登录问题")
+          _this._return_error_toast("登录服务器问题");
+          reject("登录服务器问题");
         }
       })
     });

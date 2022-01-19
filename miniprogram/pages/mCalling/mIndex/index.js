@@ -26,6 +26,9 @@ Page({
     remoteUserAccount: '',
     remoteUserID: 0,
     user_accept: false,
+    pick: ["无法开闸", "其他"],
+    pick_index: 0,
+    call_reason: ''
     //userID: '',
     //searchResultShow: ''
   },
@@ -37,12 +40,13 @@ Page({
       hasUserInfo: wx.getStorageSync('hasuserinfo'),
       park_id: wx.getStorageSync("park_id"),
       road_id: wx.getStorageSync("road_id"),
-    })
-    const {
+    });
+    setTimeout(() => {
+       const {
       config
     } = this.data;
     config.sdkAppID = app.globalData.SDKAppID;
-    config.userID = app.globalData.userInfo.userID;
+    config.userID = "微信用户" + this.data.wxuserInfo.nickName;
     config.userSig = genTestUserSig(config.userID).userSig;
     config.type = 2; // 视频聊天 参数2
     config.tim = wx.$TUIKit;
@@ -52,6 +56,7 @@ Page({
     }, () => {
       this.TRTCCalling = this.selectComponent('#TRTCCalling-component');
       this.TRTCCalling.init();
+    }, 400);
       /***** 
        * //this.config.tim == (privete) null
        * init() had included login(),addListen()
@@ -124,14 +129,22 @@ Page({
         this.TRTCCalling.set_parkdata(this.data.remoteUserID, this.data.park_id);
         setTimeout(() => {
           //应把待数据传入组件再拨通，500ms等待
-           this.TRTCCalling.call({
-          userID: "客服" + this.data.remoteUserAccount,
-          type: 2
-        });
+          this.TRTCCalling.call({
+            userID: "客服" + this.data.remoteUserAccount,
+            type: 2
+          });
         }, 500);
-       
       }
     }).catch((e) => {})
+  },
+  pick_change(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      pick_index: e.detail.value
+    })
+    this.setData({
+      call_reason: pick[pick_index]
+    })
   },
   UserCancel(id) {
     wx.request({

@@ -2,8 +2,8 @@
   "pages": [
     "pages/aLogin/login",
     "pages/mLogin/login",
-   
     "pages/aManage/aIndex/index",
+
     "pages/aManage/aParking/parking",
     
     "pages/aManage/aPlus/plus",

@@ -1,0 +1,67 @@
+function subs(sub) {
+  len = sub.length;
+  //console.log("sub len " + len);
+  //console.log("sub " + sub);
+  if (len < 12) {
+    return sub;
+  } else {
+    return sub.substring(0, 12) + "...";
+  }
+}
+function subs_isLong(sub) {
+  len = sub.length;
+  //console.log("sub len " + len);
+  //console.log("sub " + sub);
+  if (len < 12) {
+    return false;
+  } else {
+    return true
+  }
+}
+function timefmt(params) {
+  // len = params.length;
+  //params.substring(0,20);//去尾巴
+  // console.log("sub len " + len);
+  date = getDate(params);
+  week = date.toString().substring(0, 3); //date.getDate()也可以
+  switch (week) {
+    case "Mon":
+      week = " 周一";
+      break;
+    case "Tue":
+      week = " 周二";
+      break;
+    case "Wed":
+      week = " 周三";
+      break;
+    case "Thu":
+      week = " 周四";
+      break;
+    case "Fri":
+      week = " 周五";
+      break;
+    case "Sat":
+      week = " 周六";
+      break;
+    case "Sun":
+      week = " 周日";
+      break;
+    default:
+      week = "";
+      break;
+  }
+  year = date.getFullYear() + "年"
+  month = date.getMonth() + 1 + "月";
+  day = date.getDate() + "日";
+  hh = date.getHours() + "时";
+  mm = date.getMinutes() + "分";
+  ss = date.getSeconds() + "秒"; //unnecessary
+  //console.log("sub " +year+month+day+hh+mm+ss+week);
+  return year + month + day + hh + mm + week
+}
+
+module.exports = {
+  subs: subs,
+  timefmt: timefmt,
+  subs_isLong:subs_isLong
+}

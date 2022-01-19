@@ -1,2 +1,21 @@
 <!--pages/aManage/aRecord/record.wxml-->
-<text>pages/aManage/aRecord/record.wxml</text>
+<wxs src="record.wxs" module="subtool"></wxs>
+<view>
+  <scroll-view class="scroll">
+    <label>停车场名: <text>{{park_entity.park_name}}</text></label>
+    <label>所在省市区: {{park_entity.city}}</label>
+    <label>地址: {{park_entity.address}}</label>
+  </scroll-view>
+</view>
+
+
+<scroll-view class="collect_form">
+  <view class="item" wx:for="{{record}}" wx:key="index" data-item="{{item}}">
+    <label>道闸ID：{{item.road_gate_id}}</label>
+    <label>创建日期：{{subtool.timefmt(item.gmt_created)}}</label>
+    <label>修改日期：{{subtool.timefmt(item.gmt_modified)}}</label>
+    <label>呼叫状态：{{item.call_status==1?'呼叫中':(item.call_status==2?'通话中':(item.call_status==3?'已挂断':'已取消'))}}</label>
+    <label>呼叫原因：{{subtool.subs(item.call_reason)}}</label>
+    <label>备注：{{subtool.subs(item.remark)}}<text id="{{item.id}}" data-remark="{{item.remark}}" bindtap="edit_remark" style="color: blueviolet;">{{subtool.subs_isLong(item.remark)?'[更多]':'[编辑]'}}</text></label>
+  </view>
+</scroll-view>

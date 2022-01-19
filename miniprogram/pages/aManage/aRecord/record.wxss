@@ -1,1 +1,38 @@
 /* pages/aManage/aRecord/record.wxss */
+
+.scroll{
+  width: auto;
+  height: 15vh;
+  border: 1px solid;
+  border-radius: 8px;
+  margin:  1vh  ;
+}
+.scroll label{
+  margin-top: 1vh;
+  margin-left: 1vh;
+  display: flex;
+}
+.collect_form{
+  width: auto;
+  height: auto;
+  border: 1px solid;
+  border-radius: 8px;
+  margin:  1vh  ;
+}
+.item{
+  margin-top:2vh;
+  margin-bottom: 2vh;
+  border: 1px solid;
+  width: 92%;
+  min-height: 10vh;
+  max-height: 40vh;
+  border-radius: 4px;
+  margin-left: 2vh;
+  position: relative;
+}
+.item label{
+  display: flex;
+  margin-top:1vh;
+  margin-left: 1vh;
+  margin-bottom: 1vh;
+}
