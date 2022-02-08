@@ -104,22 +104,3 @@ func Call_entity(c *fiber.Ctx) error {
 	}
 	return c.Status(200).JSON(call_entity)
 }
-func Call_entity_update_remark(c *fiber.Ctx) error {
-	type Parser struct{
-		Id json.Number `json:"id"`
-		Remark string `json:"remark"`
-	}
-	call_entity := &models.Call_entity{}
-	temp := new(Parser)
-	if err := c.BodyParser(temp);err != nil{
-		return c.Status(400).JSON(err.Error())
-	}
-	v, _ := strconv.ParseInt(string(temp.Id), 10, 64)
-	call_entity.Get_call_entity(int(v))
-	call_entity.Gmt_modified = time.Now()
-	call_entity.Remark = temp.Remark
-	if result := database.DB.Save(&call_entity);result.Error!= nil{
-		return c.Status(400).JSON(result.Error) 
-	}
-	return c.Status(200).SendString("更新成功啦!") 
-}

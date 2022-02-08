@@ -37,7 +37,7 @@ func Park(c *fiber.Ctx) error {
 	database.DB.Where("account_id = ?", id).First(&park_account)
 	if park_account.Park_id != 0 {
 		log.Println(park_account)
-		database.DB.Where("id = ? and status = 0", park_account.Park_id).First(&park)
+		database.DB.Where("id = ? and status not in (-1)", park_account.Park_id).First(&park)
 		if park.Id != 0 {
 			detail := &models.Park_detail{
 				Id:           park.Id,
