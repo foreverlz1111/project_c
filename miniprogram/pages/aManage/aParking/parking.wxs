@@ -1,0 +1,7 @@
+function count(params) {
+  len = params.length;
+  return len;
+}
+module.exports = {
+  count: count
+}

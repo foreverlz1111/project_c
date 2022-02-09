@@ -2,36 +2,40 @@
 <TUI-calling id="TRTCCalling-component" config="{{config}}" backgroundMute="{{true}}"></TUI-calling>
 <view class="container">
   <view class="tip">
-  <view>
-    <label>账号：{{account_entity.account}}</label>
+    <view>
+      <label>账号：{{account_entity.account}}</label>
+    </view>
+    <view>
+      <label>所属停车场：{{park_entity.city}}{{park_entity.address}}
+      <text bindtap="park_name_tap">[{{park_entity.park_name}}]</text>
+      </label>
+    </view>
+    <view><label>接受视频来电：</label>
+      <switch bindtap="switch_ready" disabled="true" checked="{{ready_call}}"></switch>
+    </view>
+    <view><label>停车场状态：</label>
+      <switch bindtap="switch_open" disabled="true" checked="{{park_entity.status==0?true:false}}"></switch>
+    </view>
   </view>
-  <view>
-    <label>所属停车场：{{park_entity.city}}{{park_entity.park_name}}</label>
-  </view>
-      <view
-      ><label>接受视频来电：</label><switch bindtap="switch_ready" disabled="true" checked="{{ready_call}}"></switch>
-      </view>
-      
-  </view>
-<view id="borderline">
-  <text id="boderline_text">请选择</text>
-  <image id="borderline_image" src="../../../static/images/conversation-profile.png"></image>
   
-</view>
-
-<view id="class_view">
-  <view class="class_button" wx:for="{{init_index1}}" wx:key="index"data-item="{{item}}" bindtap="_redirect">
-    <image mode="aspectFit" class="class_image" src="{{item.icon}}"></image>
-    <text class="class_text">{{item.title}}</text>
+ <view id="borderline">
+    <text id="boderline_text">请选择</text>
+    <image id="borderline_image" src="../../../static/images/conversation-profile.png"></image>
   </view>
-</view>
-<view id="class_view">
-  <view hidden="true" class="class_button" wx:for="{{init_index2}}" wx:key="index"data-item="{{item}}" bindtap="_redirect">
-    <image mode="aspectFit" class="class_image" src="{{item.icon}}"></image>
-    <text class="class_text">{{item.title}}</text>
+  <view id="class_view">
+  
+    <view class="class_button" wx:for="{{init_index1}}" wx:key="index" data-item="{{item}}" bindtap="_redirect">
+      <image mode="aspectFit" class="class_image" src="{{item.icon}}"></image>
+      <text class="class_text">{{item.title}}</text>
+    </view>
   </view>
-</view>
+  <view id="class_view">
+    <view hidden="true" class="class_button" wx:for="{{init_index2}}" wx:key="index" data-item="{{item}}" bindtap="_redirect">
+      <image mode="aspectFit" class="class_image" src="{{item.icon}}"></image>
+      <text class="class_text">{{item.title}}</text>
+    </view>
+  </view>
 </view>
 <button hidden="true" class="exit_bnt">
-退出登录
+  重新登录
 </button>

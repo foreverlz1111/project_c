@@ -1,3 +1,7 @@
+function count(params) {
+  len = params.length;
+  return len;
+}
 function subs(sub) {
   len = sub.length;
   //console.log("sub len " + len);
@@ -61,6 +65,7 @@ function timefmt(params) {
 }
 
 module.exports = {
+  count:count,
   subs: subs,
   timefmt: timefmt,
   subs_isLong:subs_isLong

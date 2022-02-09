@@ -125,6 +125,57 @@ Page({
     })
     return promise;
   },
+  delete_tap(event) {
+    let _delete_id = event.currentTarget.id;
+    let _this = this;
+    wx.showModal({
+      title: '删除记录？',
+      content: '该操作不可恢复。',
+      cancelColor: 'cancelColor',
+      confirmColor: '#ff3434',
+      confirmText: '删除',
+      success(s) {
+        if (s.confirm) {
+          wx.showLoading({
+            title: '删除中',
+          });
+          _this.delete_record(_delete_id).then((res) => {
+            if (res.statusCode == 200) {
+              _this._return_success_toast(res.data);
+              _this.get_record().then((refresh) => {
+                _this.setData({
+                  record: refresh
+                });
+              });
+            } else if (res.statusCode == 400) {
+              _this._return_error_toast(res.data);
+            }
+          })
+        } else {
+          _this._return_success_toast("没有删除");
+        }
+      }
+    })
+  },
+  delete_record(id) {
+    let _this = this;
+    let promise = new Promise(function (s, e) {
+      wx.request({
+        url: 'http://lzypro.com:3000/call_entity/update/deletion',
+        method: 'DELETE',
+        data: {
+          id: id
+        },
+        success(res) {
+          s(res)
+        },
+        fail() {
+          _this._return_error_toast("网络问题");
+        }
+      })
+    })
+    return promise;
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

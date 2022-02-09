@@ -1,17 +1,41 @@
 <!--pages/aManage/aParking/parking.wxml-->
+<wxs src="parking.wxs" module="tool"></wxs>
+
+<view  position  class="b1" hidden="{{flag}}">
+  <view class="b2">
+   
+    <label>类型:</label><input></input>
+    <button class="confirm_bnt">确定</button>
+    <button class="cancel_bnt">取消</button>
+  </view>
+  <view hidden="true" class="t_w">
+    <cover-view class="t_image" bindtap="closeMask">
+      <cover-image src="/static/images/task-list-delete.png"></cover-image>
+    </cover-view>
+  </view>
+</view>
+
 <view>
-<scroll-view class="scroll">
-<label>停车场名: <text>{{park_entity.park_name}}</text></label>
-<label>所在省市区: {{park_entity.city}}</label>
-<label>地址: {{park_entity.address}}</label>
-</scroll-view>
+  <scroll-view class="scroll">
+    <label>停车场名: <text>{{park_entity.park_name}}</text></label>
+    <label>所在省市区: {{park_entity.city}}</label>
+    <label>地址: {{park_entity.address}}</label>
+  </scroll-view>
+
+  <text> 当前共{{tool.count(road)}}条，最多显示最近30条记录：</text>
+</view>
+<view class="add_box">
+  <image class="add_button" bindtap="add" mode="aspectFit" src="../../../static/images/add-group-member.png"></image>
+  <text class="add_button_text">添加</text>
 </view>
 
 <scroll-view class="collect_form">
-  <view class="item" wx:for="{{road}}" wx:key="index"data-item="{{item}}" >
+  <view class="item" wx:for="{{road}}" wx:key="index" data-item="{{item}}">
+    <image class="deletion" id="{{item.id}}" bindtap="delete_tap" mode="aspectFill" src="../../../static/images/delete-2-alternate.png"></image>
     <label>闸口ID：{{item.road_id}}</label>
     <label>闸口类型：{{item.road_gate_type==1?'进口':(item.road_gate_type==2?'出口':'进出口')}}</label>
     <label style="color: {{item.open_gate_type==1?'BLACK':'RED'}};">闸口状态：{{item.open_gate_type==1?'开启':'关闭'}}
-    <switch id="{{item.open_id}}" data-status="{{item.open_gate_type}}" name="{{item.open_gate_type}}"  disabled="true" bindtap="open_status" class="status_switch" checked="{{item.open_gate_type==1?true:false}}"></switch></label> 
+      <switch id="{{item.open_id}}" data-status="{{item.open_gate_type}}" name="{{item.open_gate_type}}" disabled="true" bindtap="open_status" class="status_switch" checked="{{item.open_gate_type==1?true:false}}"></switch>
+    </label>
   </view>
 </scroll-view>

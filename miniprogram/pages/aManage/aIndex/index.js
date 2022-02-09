@@ -20,12 +20,12 @@ Page({
         url: "../aRecord/record"
       },
       {
-        title: "权限管理",
+        title: "密码管理",
         icon: "../../../static/images/programming-user-head.png",
         url: "../aPrivilege/privilege"
       },
       {
-        title: "车场管理",
+        title: "道闸管理",
         icon: "../../../static/images/parking-ramp.png",
         url: "../aParking/parking"
       },
@@ -82,7 +82,8 @@ Page({
             });
             _this.setData({
               park_entity: res.data,
-            })
+            });
+
           } else if (res.statusCode == 400) {
             _this._return_error_toast(res.data)
           }
@@ -172,6 +173,128 @@ Page({
     wx.hideLoading({
       success: (res) => {},
     })
+  },
+  switch_open: function () {
+    let _this = this;
+    let _park_entity = _this.data.park_entity;
+    if (_park_entity.status == 0) {
+      wx.showModal({
+        cancelColor: 'cancelColor',
+        title: '提示',
+        content: '是否关闭该车场？',
+        success(e) {
+          if (e.confirm) {
+            _this.park_change(_park_entity.id, _park_entity.status).then((res => {
+              if (res.statusCode == 200) {
+                _this._return_success_toast(res.data);
+                _this._get_park(_this.data.account_entity.id);
+              } else if (res.statusCode == 400) {
+                _this._return_success_toast(res.data);
+              }
+            }))
+          }
+        }
+      })
+    } else if (_park_entity.status == 1) {
+      wx.showModal({
+        cancelColor: 'cancelColor',
+        title: '提示',
+        content: '是否开启该车场？',
+        success(e) {
+          if (e.confirm) {
+            _this.park_change(_park_entity.id, _park_entity.status).then((res => {
+              if (res.statusCode == 200) {
+                _this._return_success_toast(res.data);
+                _this._get_park(_this.data.account_entity.id);
+              } else if (res.statusCode == 400) {
+                _this._return_success_toast(res.data);
+              }
+            }))
+          }
+        }
+      })
+    }
+  },
+  park_change(id, param) {
+    let _this = this;
+    wx.showLoading({
+      title: '更新中',
+    });
+    let promise = new Promise(function (s, e) {
+      wx.request({
+        url: 'http://lzypro.com:3000/manages/park_status',
+        method: 'PUT',
+        data: {
+          park_id: id,
+          status: param
+        },
+        success(res) {
+          //console.log(res);
+          s(res)
+        },
+        fail() {
+          _this._return_error_toast("服务器连接失败");
+        }
+      })
+    })
+    return promise;
+  },
+  park_name_tap() {
+    let _this = this;
+    let _park_id = _this.data.park_entity.id;
+    let _park_name = _this.data.park_entity.park_name;
+    wx.showModal({
+      cancelColor: 'cancelColor',
+      title: '停车场名称',
+      confirmText:'修改',
+      content: _park_name,
+      editable: true,
+      success(s) {
+        if (s.confirm) {
+          if (s.content == _park_name) {
+            _this._return_success_toast("无需修改");
+          } else {
+            wx.showLoading({
+              title: '保存中 !~',
+            })
+            _this.park_name_change(_park_id, s.content).then((res) => {
+              if (res.statusCode == 200) {
+                _this._get_park(_this.data.account_entity.id).then((refresh) => {
+                  console.log(refresh.data);
+                 _this._return_success_toast(res.data);
+                });
+              } else if (res.statusCode == 400) {
+                _this._return_error_toast(res.data)
+              }
+            })
+          }
+        }
+      }
+    })
+  },
+  park_name_change(id, param) {
+    let _this = this;
+    wx.showLoading({
+      title: '更新中',
+    });
+    let promise = new Promise(function (s, e) {
+      wx.request({
+        url: 'http://lzypro.com:3000/manages/park_name',
+        method: 'PUT',
+        data: {
+          park_id: id,
+          park_name : param
+        },
+        success(res) {
+          //console.log(res);
+          s(res)
+        },
+        fail() {
+          _this._return_error_toast("服务器连接失败");
+        }
+      })
+    })
+    return promise;
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

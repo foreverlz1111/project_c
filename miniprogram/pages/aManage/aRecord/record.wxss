@@ -1,11 +1,15 @@
 /* pages/aManage/aRecord/record.wxss */
 
 .scroll{
+  margin-left: 1vh;
+  margin-right: 1vh;
   width: auto;
+  position: relative;
   height: 15vh;
+  margin-top:2vh;
   border: 1px solid;
   border-radius: 8px;
-  margin:  1vh  ;
+  margin-bottom: 1vh;
 }
 .scroll label{
   margin-top: 1vh;
@@ -15,20 +19,28 @@
 .collect_form{
   width: auto;
   height: auto;
-  border: 1px solid;
-  border-radius: 8px;
+  border-bottom: 1px solid;
+  border-radius: 2px;
   margin:  1vh  ;
 }
 .item{
-  margin-top:2vh;
+  margin-top:1vh;
   margin-bottom: 2vh;
   border: 1px solid;
-  width: 92%;
+  width: 98%;
   min-height: 10vh;
   max-height: 40vh;
-  border-radius: 4px;
-  margin-left: 2vh;
+  border-radius: 8px;
   position: relative;
+}
+.item image{
+  height: 20px;
+  width: 20px;
+  float: right;
+  margin-right: 1vh;
+  margin-top: 1vh;
+  position: relative;
+  display: inline;
 }
 .item label{
   display: flex;

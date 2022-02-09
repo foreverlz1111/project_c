@@ -1,3 +1,39 @@
 <!--pages/aManage/aPrivilege/privilege.wxml-->
-<view></view>
-<text>暂不支持功能</text>
+<view id="note1">您正在修改密码，完成之后您可以使用新的密码来登陆管理页面，请妥善保管好新登陆密码，修改完成需要重新登陆</view>
+
+<view id="form_view">
+  <form id="update_password" bindsubmit="change_password">
+
+    <view class="password_input_view">
+      <view class="password_text_view">账号</view>
+      <view class="password_input">
+        <text style="color:#777676">{{infomation.name}}</text>
+      </view>
+    </view>
+
+    <view class="password_input_view">
+      <view class="password_text_view">旧密码</view>
+      <view class="password_input">
+        <input id="password1" name="old_password" type="password" confirm-type="password" placeholder="请输入旧密码" confirm-type="next"></input>
+      </view>
+    </view>
+
+    <view class="password_input_view">
+      <view class="password_text_view">新密码</view>
+      <view class="password_input">
+        <input id="password2" type="password" confirm-type="password" name="new_password1" placeholder="请输入新密码" confirm-type="next"></input>
+      </view>
+    </view>
+
+    <view class="password_input_view">
+      <view text class="password_text_view">新密码</view>
+      <view class="password_input">
+        <input id="password3" name="new_password2" type="password" confirm-type="password" placeholder="请重复输入新密码"></input>
+      </view>
+    </view>
+    <view id="note2">*不建议使用简单密码</view>
+
+    <button id="password_button" form-type="submit" disabled="{{disable}}">确认修改</button>
+  </form>
+
+</view>

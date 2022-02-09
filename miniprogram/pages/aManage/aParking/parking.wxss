@@ -1,7 +1,39 @@
 /* pages/aManage/aParking/parking.wxss */
+.b1{
+  z-index: 7;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.b2{
+  background-color: white;
+  border: 1px solid;
+  z-index: 6;
+  width: 60%;
+  height: 60%;
+}
+.t_w{
+  margin-top: 20rpx;
+}
+.b2 image{
+  width: 60%;
+  height: 60%;
+}
+.t_image{
+  width: 60rpx;
+  height: 60rpx;
+}
 
 .scroll{
   width: auto;
+  margin-left: 1vh;
+  margin-right: 1vh;
   height: 15vh;
   border: 1px solid;
   border-radius: 8px;
@@ -15,20 +47,47 @@
 .collect_form{
   width: auto;
   height: auto;
-  border: 1px solid;
   border-radius: 8px;
   margin:  1vh  ;
+}
+
+.add_button{
+  height: 22px;
+  width: 22px;
+  margin-left: 1vh;
+}
+.add_box{
+  /* 上 右 下 左 */
+  margin:2vh 2vh 0  2vh;
+  width: auto;
+  float: left;
+  flex-direction: row;
+  display:flex;
+  border: 1px solid;
+  padding:5px;
+  border-radius: 6px;
+}
+.add_button_text{
+  margin-left: 1vh;
 }
 .item{
   margin-top:2vh;
   margin-bottom: 2vh;
   border: 1px solid;
-  width: 90%;
+  width: 98%;
   min-height: 10vh;
   max-height: 30vh;
-  border-radius: 4px;
-  margin-left: 2vh;
+  border-radius: 8px;
   position: relative;
+}
+.item .deletion{
+  height: 20px;
+  width: 20px;
+  float: right;
+  margin-right: 1vh;
+  margin-top: 1vh;
+  position: relative;
+  display: inline;
 }
 .item label{
   display: flex;

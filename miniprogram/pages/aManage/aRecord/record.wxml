@@ -7,10 +7,11 @@
     <label>地址: {{park_entity.address}}</label>
   </scroll-view>
 </view>
-
-
+<text> 当前共{{subtool.count(record)}}条，最多显示最近30条记录：</text>
 <scroll-view class="collect_form">
   <view class="item" wx:for="{{record}}" wx:key="index" data-item="{{item}}">
+    <image id="{{item.id}}" bindtap="delete_tap" mode="aspectFill" src="../../../static/images/delete-2-alternate.png"></image>
+    <label>记录编号：{{item.id}}</label>
     <label>道闸ID：{{item.road_gate_id}}</label>
     <label>创建日期：{{subtool.timefmt(item.gmt_created)}}</label>
     <label>修改日期：{{subtool.timefmt(item.gmt_modified)}}</label>

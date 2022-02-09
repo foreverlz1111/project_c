@@ -7,7 +7,8 @@ Page({
   data: {
     account_entity: {},
     park_entity: {},
-    road: []
+    road: [],
+    flag:false
   },
 
   /**

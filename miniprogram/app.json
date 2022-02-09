@@ -1,11 +1,9 @@
 {
-  "pages": [
+  "pages": [    
+    "pages/aManage/aParking/parking",
+    "pages/aManage/aIndex/index",
     "pages/aLogin/login",
     "pages/mLogin/login",
-    "pages/aManage/aIndex/index",
-
-    "pages/aManage/aParking/parking",
-    
     "pages/aManage/aPlus/plus",
     "pages/mCalling/mIndex/index",
     "pages/aManage/aPrivilege/privilege",
@@ -13,7 +11,7 @@
   ],
   "plugins": {
     "myPlugin": {
-      "version": "1.0.2",
+      "version": "1.0.3",
       "provider": "wxb302e0fc8ab232b4"
     }
   },
