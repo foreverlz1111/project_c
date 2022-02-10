@@ -32,8 +32,8 @@ func _SetManages(app *fiber.App){
 	app.Put("/manages/park_name",routes.Park_name_change)//修改车场名
 	app.Put("/call_entity/update/remark",routes.Call_entity_update_remark)//更新通话记录的备注
 	app.Delete("/call_entity/update/deletion",routes.Call_entity_deletion)//删除通话记录
-	//app.Post("/manages/open_gate",routes.Add_gate)//新增道闸
-	//app.Put("/manages/open_gate",routes.Update_gate)//更新道闸
+	app.Post("/manages/open_gate",routes.Add_gate)//新增道闸
+	app.Put("/manages/open_gate",routes.Update_gate_type)//更新道闸类型
 	//app.Delete("/manages/open_gate",routes.Delete_gate)//删除道闸
 }
 func main() {

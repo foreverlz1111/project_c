@@ -81,7 +81,7 @@ func Road_gate(c *fiber.Ctx) error {
 func Road(c *fiber.Ctx) error {
 	park_id := c.Params("park_id")
 	detail := []models.Road_detail{}
-	database.DB.Raw("select a.id `Road_id`,a.road_gate_type `Road_gate_type`,b.id `Open_id`,b.open_type `Open_gate_type` from road_gate_entity a,open_gate_entity b where b.road_gate_id = a.id and a.park_id = ?", park_id).Scan(&detail)
+	database.DB.Raw("select a.id `Road_id`,a.road_gate_type `Road_gate_type`,b.id `Open_id`,b.open_type `Open_gate_type` from road_gate_entity a,open_gate_entity b where b.road_gate_id = a.id and a.park_id = ? and a.status not in (-1) and b.status not in (-1)", park_id).Scan(&detail)
 	if len(detail) > 0 {
 		return c.Status(200).JSON(detail)
 	}

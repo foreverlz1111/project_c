@@ -96,3 +96,61 @@ func Call_entity_deletion(c *fiber.Ctx) error {
 	}
 	return c.Status(400).SendString("更新失败")
 }
+func Add_gate(c *fiber.Ctx) error {
+	type Parser struct {
+		Id             json.Number `json:"park_id"`
+		Road_gate_type json.Number `json:"road_gate_type"`
+		Open_type      json.Number `json:"open_type"`
+	}
+	road_gate_entity := new(models.Road_gate_entity)
+	open_gate_entity := new(models.Open_gate_entity)
+	temp := new(Parser)
+	if err := c.BodyParser(temp); err != nil {
+		return c.Status(400).JSON(err.Error())
+	}
+	log.Println(temp)
+	road_gate_entity.Status = 0
+	road_gate_entity.Gmt_created = time.Now()
+	road_gate_entity.Gmt_modified = time.Now()
+	v, _ := strconv.ParseInt(string(temp.Id), 10, 64)
+	road_gate_entity.Park_id = int(v)
+	open_gate_entity.Park_id = int(v)
+	v, _ = strconv.ParseInt(string(temp.Road_gate_type), 10, 64)
+	road_gate_entity.Road_gate_type = int(v)
+	open_gate_entity.Status = 0
+	open_gate_entity.Gmt_created = time.Now()
+	open_gate_entity.Gmt_modified = time.Now()
+	v, _ = strconv.ParseInt(string(temp.Open_type), 10, 64)
+	open_gate_entity.Open_type = int(v)
+	result := database.DB.Omit("id", "qr_code").Create(&road_gate_entity)
+	if result.RowsAffected > 0 {
+		log.Println("插入编号 ", road_gate_entity.Id)
+		open_gate_entity.Road_gate_id = road_gate_entity.Id
+		result = database.DB.Omit("id").Create(&open_gate_entity)
+		if result.RowsAffected > 0 {
+			return c.Status(200).SendString("添加成功")
+		}
+	}
+	return c.Status(400).SendString("添加失败")
+}
+func Update_gate_type(c *fiber.Ctx) error {
+	type Parser struct {
+		Id             json.Number `json:"id"`
+		Road_gate_type json.Number `json:"road_gate_type"`
+	}
+	temp := new(Parser)
+	road_gate_entity := new(models.Road_gate_entity)
+	if err := c.BodyParser(temp); err != nil {
+		return c.Status(400).JSON(err.Error())
+	}
+	road_gate_entity.Gmt_modified = time.Now()
+	v, _ := strconv.ParseInt(string(temp.Road_gate_type), 10, 64)
+	road_gate_entity.Road_gate_type = int(v)
+	v, _ = strconv.ParseInt(string(temp.Id), 10, 64)
+	road_gate_entity.Id = int(v)
+	result := database.DB.Model(&road_gate_entity).Select("gmt_modified","road_gate_type").Updates(road_gate_entity)
+	if result.RowsAffected > 0 {
+		return c.Status(200).SendString("更新成功")
+	}
+	return c.Status(400).SendString("更新失败")
+}

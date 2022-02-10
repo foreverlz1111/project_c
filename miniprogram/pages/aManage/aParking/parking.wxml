@@ -1,12 +1,33 @@
 <!--pages/aManage/aParking/parking.wxml-->
 <wxs src="parking.wxs" module="tool"></wxs>
 
-<view  position  class="b1" hidden="{{flag}}">
+<view position class="b1" hidden="{{hide_add_dialog}}">
   <view class="b2">
-   
-    <label>类型:</label><input></input>
-    <button class="confirm_bnt">确定</button>
-    <button class="cancel_bnt">取消</button>
+    <!-- 弹出框内： -->
+    <view class="picker_box">
+      <label><text>*</text>道闸类型：</label>
+      <view class="picker_box_view">
+        <picker bindchange="road_gate_type_picker_change" mode="selector" range="{{road_gate_type}}" value="{{road_gate_type_index}}">
+          <view>{{road_gate_type[road_gate_type_index]}}<image mode="aspectFill" src="/static/images/arrow-down-1.png"></image>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="picker_box">
+      <label><text>*</text>状态类型：</label>
+      <view class="picker_box_radio">
+        <!-- 基础样式有各种各样的bug还不修，任性鹅厂 [x]-->
+        <radio-group bindchange="open_type_radio_change">
+          <radio value="1" checked="{{open_type==1?true:false}}">开闸</radio>
+          <radio value="2" checked="{{open_type==2?true:false}}">关闸</radio>
+        </radio-group>
+      </view>
+    </view>
+    <view class="control_bnt">
+      <button class="confirm_bnt" bindtap="confirm_add_tap">确定</button>
+      <button class="cancel_bnt" bindtap="cancel_add_tap">取消</button>
+    </view>
+    <!-- 弹出框结尾 -->
   </view>
   <view hidden="true" class="t_w">
     <cover-view class="t_image" bindtap="closeMask">
@@ -24,17 +45,20 @@
 
   <text> 当前共{{tool.count(road)}}条，最多显示最近30条记录：</text>
 </view>
-<view class="add_box">
-  <image class="add_button" bindtap="add" mode="aspectFit" src="../../../static/images/add-group-member.png"></image>
+
+<view class="add_box" bindtap="add_tap">
+  <image class="add_button" mode="aspectFill" src="/static/images/add-group-member.png"></image>
   <text class="add_button_text">添加</text>
 </view>
 
 <scroll-view class="collect_form">
   <view class="item" wx:for="{{road}}" wx:key="index" data-item="{{item}}">
-    <image class="deletion" id="{{item.id}}" bindtap="delete_tap" mode="aspectFill" src="../../../static/images/delete-2-alternate.png"></image>
+    <image class="deletion" id="{{item.road_id}}" bindtap="delete_tap" mode="aspectFill" src="../../../static/images/delete-2-alternate.png"></image>
     <label>闸口ID：{{item.road_id}}</label>
-    <label>闸口类型：{{item.road_gate_type==1?'进口':(item.road_gate_type==2?'出口':'进出口')}}</label>
-    <label style="color: {{item.open_gate_type==1?'BLACK':'RED'}};">闸口状态：{{item.open_gate_type==1?'开启':'关闭'}}
+    <label>闸口类型：<text>{{item.road_gate_type==1?'进口':(item.road_gate_type==2?'出口':'进出口')}}</text>
+      <picker header-text="选择闸口类型" id="{{item.road_id}}" data-compare="{{item.road_gate_type}}" bindchange="road_gate_type_alteration_change" range="{{road_gate_type}}" value="{{item.road_gate_type==1?0:(item.road_gate_type==2?1:2)}}"><text class="alteration_text">[修改]</text></picker>
+    </label>
+    <label style="color: {{item.open_gate_type==1?'BLACK':'RED'}};">闸口状态：{{item.open_gate_type==1?'开闸':'关闸'}}
       <switch id="{{item.open_id}}" data-status="{{item.open_gate_type}}" name="{{item.open_gate_type}}" disabled="true" bindtap="open_status" class="status_switch" checked="{{item.open_gate_type==1?true:false}}"></switch>
     </label>
   </view>
