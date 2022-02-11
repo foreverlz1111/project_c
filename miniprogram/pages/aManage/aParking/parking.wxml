@@ -16,7 +16,7 @@
     <view class="picker_box">
       <label><text>*</text>状态类型：</label>
       <view class="picker_box_radio">
-        <!-- 基础样式有各种各样的bug还不修，任性鹅厂 [x]-->
+        <!-- 基础样式有各种各样的bug也不修，任性鹅厂 [x]-->
         <radio-group bindchange="open_type_radio_change">
           <radio value="1" checked="{{open_type==1?true:false}}">开闸</radio>
           <radio value="2" checked="{{open_type==2?true:false}}">关闸</radio>
@@ -59,7 +59,7 @@
       <picker header-text="选择闸口类型" id="{{item.road_id}}" data-compare="{{item.road_gate_type}}" bindchange="road_gate_type_alteration_change" range="{{road_gate_type}}" value="{{item.road_gate_type==1?0:(item.road_gate_type==2?1:2)}}"><text class="alteration_text">[修改]</text></picker>
     </label>
     <label style="color: {{item.open_gate_type==1?'BLACK':'RED'}};">闸口状态：{{item.open_gate_type==1?'开闸':'关闸'}}
-      <switch id="{{item.open_id}}" data-status="{{item.open_gate_type}}" name="{{item.open_gate_type}}" disabled="true" bindtap="open_status" class="status_switch" checked="{{item.open_gate_type==1?true:false}}"></switch>
+      <switch id="{{item.open_id}}" data-question="{{item.open_gate_type==1?true:false}}" data-status="{{item.open_gate_type}}" name="{{item.open_gate_type}}" disabled="true" bindtap="open_status" class="status_switch" checked="{{item.open_gate_type==1?true:false}}"></switch>
     </label>
   </view>
 </scroll-view>

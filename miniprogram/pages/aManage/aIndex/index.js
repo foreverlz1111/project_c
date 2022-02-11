@@ -31,8 +31,8 @@ Page({
       },
     ],
     init_index2: [{
-      title: "新增车场",
-      icon: "../../../static/images/parking-p.png",
+      title: "退出登录",
+      icon: "../../../static/images/user-logout.png",
       url: "../aPlus/plus"
     }, ],
     account_entity: {},

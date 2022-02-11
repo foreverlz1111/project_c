@@ -19,20 +19,26 @@
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 3%;
-  color: #aaa9a9;
+  color: #aaa9aa;
 }
 
 #form_view {
   margin-top: 10%;
-  background-color: rgb(255, 250, 250);
+  background-color: rgba(119, 161, 252, 0.062);
+  width: 95%;
+  margin-left: 2%;
+  margin-right: 2%;
+  min-height:60vh;
+  max-height: 80vh;
 }
 
 #update_password {
-  font-size: 120%;
+  
+  font-size: 110%;
 }
 
 #password_button {
-  background-color: rgba(209, 209, 209, 0.897);
+  background-color: rgba(0, 38, 255, 0.082);
   margin-bottom: 5%;
   margin-top: 5%;
 }
@@ -43,11 +49,12 @@
 }
 
 .password_input_view {
+  padding: 2vh;
   display: flex;
   border-bottom: 1px solid;
-  margin-left: 5%;
+  margin-left:3%;
   border-color: #9b9b9b;
-  margin-right: 5%;
+  margin-right: 3%;
 }
 
 .password_input {

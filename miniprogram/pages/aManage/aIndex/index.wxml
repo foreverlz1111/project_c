@@ -30,7 +30,7 @@
     </view>
   </view>
   <view id="class_view">
-    <view hidden="true" class="class_button" wx:for="{{init_index2}}" wx:key="index" data-item="{{item}}" bindtap="_redirect">
+    <view class="class_button" wx:for="{{init_index2}}" wx:key="index" data-item="{{item}}" bindtap="_redirect">
       <image mode="aspectFit" class="class_image" src="{{item.icon}}"></image>
       <text class="class_text">{{item.title}}</text>
     </view>

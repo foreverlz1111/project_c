@@ -20,7 +20,6 @@ func Park_status_change(c *fiber.Ctx) error {
 	if err := c.BodyParser(temp); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
-	log.Println(temp)
 	v, _ := strconv.ParseInt(string(temp.Park_id), 10, 64)
 	park_entity.Id = int(v)
 	v, _ = strconv.ParseInt(string(temp.Status), 10, 64)
@@ -46,7 +45,6 @@ func Park_name_change(c *fiber.Ctx) error {
 	if err := c.BodyParser(temp); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
-	log.Println(temp)
 	v, _ := strconv.ParseInt(string(temp.Park_id), 10, 64)
 	park_entity.Id = int(v)
 	park_entity.Park_name = temp.Park_name
@@ -108,7 +106,6 @@ func Add_gate(c *fiber.Ctx) error {
 	if err := c.BodyParser(temp); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
-	log.Println(temp)
 	road_gate_entity.Status = 0
 	road_gate_entity.Gmt_created = time.Now()
 	road_gate_entity.Gmt_modified = time.Now()
@@ -148,9 +145,65 @@ func Update_gate_type(c *fiber.Ctx) error {
 	road_gate_entity.Road_gate_type = int(v)
 	v, _ = strconv.ParseInt(string(temp.Id), 10, 64)
 	road_gate_entity.Id = int(v)
-	result := database.DB.Model(&road_gate_entity).Select("gmt_modified","road_gate_type").Updates(road_gate_entity)
+	result := database.DB.Model(&road_gate_entity).Select("gmt_modified", "road_gate_type").Updates(road_gate_entity)
 	if result.RowsAffected > 0 {
 		return c.Status(200).SendString("更新成功")
 	}
 	return c.Status(400).SendString("更新失败")
+}
+func Delete_gate(c *fiber.Ctx) error {
+	type Parser struct {
+		Park_id      json.Number `json:"park_id"`
+		Road_gate_id json.Number `json:"road_gate_id"`
+	}
+	temp := new(Parser)
+	road_gate_entity := new(models.Road_gate_entity)
+	open_gate_entity := new(models.Open_gate_entity)
+	if err := c.BodyParser(temp); err != nil {
+		return c.Status(400).SendString("数据异常") //JSON(err.Error())
+	}
+	v, _ := strconv.ParseInt(string(temp.Road_gate_id), 10, 64)
+	road_gate_entity.Id = int(v)
+	road_gate_entity.Status = -1
+	road_gate_entity.Gmt_modified = time.Now()
+	open_gate_entity.Road_gate_id = int(v)
+	v, _ = strconv.ParseInt(string(temp.Park_id), 10, 64)
+	open_gate_entity.Park_id = int(v)
+	open_gate_entity.Gmt_modified = time.Now()
+	open_gate_entity.Status = -1
+	tx := database.DB.Begin()
+	result := tx.Model(&road_gate_entity).Select("id", "gmt_modified", "status").Updates(road_gate_entity)
+	if result.RowsAffected > 0 {
+		result = tx.Model(&open_gate_entity).Where("park_id = ? and road_gate_id = ?", open_gate_entity.Park_id, open_gate_entity.Road_gate_id).Select("gmt_modified", "status").Updates(open_gate_entity)
+		if result.RowsAffected > 0 {
+			tx.Commit()
+			return c.Status(200).SendString("更新成功")
+		}
+	}
+	tx.Rollback()
+	return c.Status(400).SendString("更新失败")
+}
+func Change_password(c *fiber.Ctx) error {
+	type Parser struct {
+		Account      string `json:"account"`
+		Old_password string `json:"old_password"`
+		New_password string `json:"new_password"`
+	}
+	temp := new(Parser)
+	account_entity := new(models.Account_entity)
+	if err := c.BodyParser(temp); err != nil {
+		return c.Status(400).SendString("数据异常")
+	}
+	result := database.DB.Where("account = ? and password = ?",temp.Account,temp.Old_password).Find(&account_entity)
+	if result.RowsAffected > 0{
+		log.Println(account_entity)
+		account_entity.Gmt_modified = time.Now()
+		account_entity.Password = temp.New_password
+		result = database.DB.Model(&account_entity).Where("account = ?",temp.Account).Select("password","gmt_modified").Updates(account_entity)
+		if result.RowsAffected > 0{
+			return c.Status(200).SendString("修改成功")
+		}
+		return c.Status(400).SendString("修改失败")
+	}
+	return c.Status(400).SendString("原密码错误")
 }

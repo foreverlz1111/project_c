@@ -1,12 +1,12 @@
 {
   "pages": [    
-    "pages/aManage/aParking/parking",
     "pages/aManage/aIndex/index",
+    "pages/aManage/aPrivilege/privilege",
+    "pages/aManage/aParking/parking",
     "pages/aLogin/login",
     "pages/mLogin/login",
     "pages/aManage/aPlus/plus",
     "pages/mCalling/mIndex/index",
-    "pages/aManage/aPrivilege/privilege",
     "pages/aManage/aRecord/record"
   ],
   "plugins": {

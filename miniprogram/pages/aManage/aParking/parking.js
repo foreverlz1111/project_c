@@ -18,6 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '努力加载中',
+    })
     this.setData({
       account_entity: wx.getStorageSync('account_entity'),
       park_entity: wx.getStorageSync('park_entity'),
@@ -25,11 +28,13 @@ Page({
 
     this._get_control(this.data.park_entity.id).then((res) => {
       //接口返回4个元组
-
+      wx.hideLoading({
+        success: (res) => {},
+      })
     });
   },
   open_status: function (event) {
-    var question = event.detail.value == true ? "开启?" : "关闭?";
+    var question = event.currentTarget.dataset.question == true ? "关闭?" : "开启?";
     var _this = this;
     var open_gate_id = event.currentTarget.id;
     var status = event.currentTarget.dataset.status;
@@ -133,8 +138,6 @@ Page({
     wx.showLoading({
       title: '修改中',
     })
-    console.log("id" + id);
-    console.log(",road_gate_type" + road_gate_type)
     let promise = new Promise(function (s, e) {
       wx.request({
         url: 'http://lzypro.com:3000/manages/open_gate',
@@ -229,6 +232,56 @@ Page({
         }
       })
     });
+    return promise;
+  },
+  delete_tap(e) {
+    let _this = this;
+    let _road_gate_id = e.currentTarget.id;
+    let _park_entity = _this.data.park_entity;
+    wx.showModal({
+      cancelColor: 'cancelColor',
+      confirmColor: '#34f3f3',
+      confirmText: '删除',
+      title: '该操作不可恢复',
+      content: '删除道闸ID为：' + _road_gate_id,
+      success(e) {
+        if (e.confirm) {
+          _this.delete_road(_park_entity.id, _road_gate_id).then((res) => {
+            if (res.statusCode == 200) {
+              _this._return_success_toast(res.data);
+              _this._get_control(_park_entity.id);
+            } else if (res.statusCode == 400) {
+              _this._return_error_toast(res.data)
+            }
+          })
+        } else {
+          _this._return_success_toast("取消操作");
+        }
+      }
+    })
+  },
+  delete_road(park_id, road_gate_id) {
+    let _this = this;
+    wx.showLoading({
+      title: '删除中',
+    });
+    let promise = new Promise(function (params) {
+      wx.request({
+        url: 'http://lzypro.com:3000/manages/open_gate',
+        method: 'DELETE',
+        data: {
+          park_id: park_id,
+          road_gate_id: road_gate_id,
+        },
+        success(res) {
+          params(res)
+        },
+        fail() {
+          _this._return_error_toast("网络异常")
+        }
+      })
+
+    })
     return promise;
   },
   /**

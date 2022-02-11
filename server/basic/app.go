@@ -34,7 +34,8 @@ func _SetManages(app *fiber.App){
 	app.Delete("/call_entity/update/deletion",routes.Call_entity_deletion)//删除通话记录
 	app.Post("/manages/open_gate",routes.Add_gate)//新增道闸
 	app.Put("/manages/open_gate",routes.Update_gate_type)//更新道闸类型
-	//app.Delete("/manages/open_gate",routes.Delete_gate)//删除道闸
+	app.Delete("/manages/open_gate",routes.Delete_gate)//删除道闸
+	app.Put("/manages/change_password",routes.Change_password)//修改密码
 }
 func main() {
 	database.ConnectDB()
