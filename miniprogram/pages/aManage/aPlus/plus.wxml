@@ -1,14 +1,5 @@
 <!--pages/aManage/aPlus/plus.wxml-->
 <view>
-<scroll-view class="scroll">
-</scroll-view>
-</view>
-<view class="collect_form">
-  <form>
-  <picker custom-item="全部">当前选择</picker>
-  <label>地址：</label>
-   <input placeholder="input"></input>
-   <button>提交</button>
-  </form>
+
 </view>
 

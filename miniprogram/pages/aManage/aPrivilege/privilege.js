@@ -14,7 +14,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      account_entity: wx.getStorageSync('account_entity')
+      account_entity: wx.getStorageSync('account_entity'),
+      input_value:''
     });
   },
   change_password_tap(e) {
@@ -23,7 +24,7 @@ Page({
     let password1 = e.detail.value.old_password;
     let password2 = e.detail.value['new_password1'];
     let password3 = e.detail.value['new_password2'];
-    console.log(password1 + "~~~~~" + password2 + "~~~~~~" + password3);
+    //console.log(password1 + "~~~~~" + password2 + "~~~~~~" + password3);
     if (password1 != '' && password2 != '' && password3 != '') {
       if (password2 != password3) {
         _this._return_error_toast("两次密码不一致");

@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarTitleText": "道闸管理",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#000000"
 }

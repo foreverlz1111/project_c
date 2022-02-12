@@ -1,9 +1,9 @@
 <!--pages/aManage/aPrivilege/privilege.wxml-->
-<view id="note1">您正在修改密码，完成之后您可以使用新的密码来登陆管理页面，请妥善保管好新登陆密码</view>
+
 
 <view id="form_view">
   <form id="update_password" bindsubmit="change_password_tap">
-
+    <view id="note1">您正在修改密码，完成之后您可以使用新的密码来登陆管理页面，请妥善保管好新登陆密码</view>
     <view class="password_input_view">
       <view class="password_text_view">账号：</view>
       <view class="password_input">

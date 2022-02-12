@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarTitleText": "退出",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#000000"
 }

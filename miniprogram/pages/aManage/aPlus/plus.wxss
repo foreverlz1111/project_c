@@ -1,24 +1,2 @@
 /* pages/aManage/aPlus/plus.wxss */
-.scroll{
-  width: auto;
-  height: 25vh;
-  border: 1px solid;
-  border-radius: 8px;
-  margin:  1vh  ;
-}
-.collect_form{
-  width: auto;
-  margin: 1vh ;
-  height: 70vh;
-  border: 1px solid;
-  border-radius: 8px;
-}
-.collect_form input {
-  border: 1px solid;
-  width: 80%;
-  border-radius: 4px;
-}
-.collect_form picker{
-  border: 1px solid;
-  width: 50%;
-}
+/* how rare */

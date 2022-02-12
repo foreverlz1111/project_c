@@ -1,9 +1,9 @@
 {
   "pages": [    
+    "pages/aLogin/login",
     "pages/aManage/aIndex/index",
     "pages/aManage/aPrivilege/privilege",
     "pages/aManage/aParking/parking",
-    "pages/aLogin/login",
     "pages/mLogin/login",
     "pages/aManage/aPlus/plus",
     "pages/mCalling/mIndex/index",

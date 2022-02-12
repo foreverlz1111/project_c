@@ -12,7 +12,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.showLoading({
+      title: '退出中',
+    });
+    setTimeout(() => {
+      wx.clearStorage({
+        success: (res) => {
+          wx.hideLoading({
+            success: (res) => {
+              wx.reLaunch({
+                url: '../../aLogin/login',
+              })
+            },
+          })
+        },
+      })
+    }, 886);
   },
 
   /**

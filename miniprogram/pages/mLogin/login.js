@@ -95,7 +95,7 @@ Page({
       key:"road_id",
       data:this.data.road_id
     });
-    //this.get_park();
+    this.get_park();
     setTimeout(() => {
       //this.test_call()
       //this.test_accept()
