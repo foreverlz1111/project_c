@@ -71,7 +71,7 @@ Page({
     var _this = this;
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/park/' + account_id,
+        url: app.globalData.request_remote + '/park/' + account_id,
         timeout: 3000,
         method: "GET",
         success(res) {
@@ -222,7 +222,7 @@ Page({
     });
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/manages/park_status',
+        url: app.globalData.request_remote + '/manages/park_status',
         method: 'PUT',
         data: {
           park_id: id,
@@ -246,7 +246,7 @@ Page({
     wx.showModal({
       cancelColor: 'cancelColor',
       title: '停车场名称',
-      confirmText:'修改',
+      confirmText: '修改',
       content: _park_name,
       editable: true,
       success(s) {
@@ -261,7 +261,7 @@ Page({
               if (res.statusCode == 200) {
                 _this._get_park(_this.data.account_entity.id).then((refresh) => {
                   console.log(refresh.data);
-                 _this._return_success_toast(res.data);
+                  _this._return_success_toast(res.data);
                 });
               } else if (res.statusCode == 400) {
                 _this._return_error_toast(res.data)
@@ -279,11 +279,11 @@ Page({
     });
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/manages/park_name',
+        url: app.globalData.request_remote + '/manages/park_name',
         method: 'PUT',
         data: {
           park_id: id,
-          park_name : param
+          park_name: param
         },
         success(res) {
           //console.log(res);

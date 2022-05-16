@@ -6,7 +6,7 @@ Page({
    */
   data: {
     account_entity: [],
-    input_value:''
+    input_value: ''
   },
 
   /**
@@ -15,7 +15,7 @@ Page({
   onLoad: function (options) {
     this.setData({
       account_entity: wx.getStorageSync('account_entity'),
-      input_value:''
+      input_value: ''
     });
   },
   change_password_tap(e) {
@@ -32,14 +32,14 @@ Page({
         if (password2 == password1) {
           _this._return_error_toast("不能使用旧密码")
         } else {
-          _this.change_password(_account, password1, password2).then((res)=>{
+          _this.change_password(_account, password1, password2).then((res) => {
             if (res.statusCode == 200) {
               _this._return_success_toast(res.data);
             } else if (res.statusCode == 400) {
               _this._return_error_toast(res.data)
             }
             _this.setData({
-              input_value:''
+              input_value: ''
             })
           })
         }
@@ -55,7 +55,7 @@ Page({
     })
     let p = new Promise(function (params) {
       wx.request({
-        url: 'http://lzypro.com:3000/manages/change_password',
+        url: app.globalData.request_remote + '/manages/change_password',
         method: 'PUT',
         data: {
           account: account,

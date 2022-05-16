@@ -1,4 +1,5 @@
 // pages/aManage/aRecord/record.js
+const app = getApp()
 Page({
 
   /**
@@ -81,7 +82,7 @@ Page({
     let _this = this;
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/call_entity/update/remark/',
+        url: app.globalData.request_remote + '/call_entity/update/remark/',
         method: "PUT",
         data: {
           "id": id,
@@ -103,7 +104,7 @@ Page({
     let _account = _this.data.account_entity;
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/call_entity/' + _park.id + '/' + _account.id,
+        url: app.globalData.request_remote + '/call_entity/' + _park.id + '/' + _account.id,
         method: "GET",
         success(res) {
           if (res.statusCode == 200) {
@@ -161,7 +162,7 @@ Page({
     let _this = this;
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/call_entity/update/deletion',
+        url: app.globalData.request_remote + '/call_entity/update/deletion',
         method: 'DELETE',
         data: {
           id: id

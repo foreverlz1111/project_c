@@ -42,21 +42,21 @@ Page({
       road_id: wx.getStorageSync("road_id"),
     });
     setTimeout(() => {
-       const {
-      config
-    } = this.data;
-    config.sdkAppID = app.globalData.SDKAppID;
-    config.userID = "微信用户" + this.data.wxuserInfo.nickName;
-    config.userSig = genTestUserSig(config.userID).userSig;
-    config.type = 2; // 视频聊天 参数2
-    config.tim = wx.$TUIKit;
-    //this.park_params.park_id = this.data.park_id;
-    this.setData({
-      config
-    }, () => {
-      this.TRTCCalling = this.selectComponent('#TRTCCalling-component');
-      this.TRTCCalling.init();
-    }, 400);
+      const {
+        config
+      } = this.data;
+      config.sdkAppID = app.globalData.SDKAppID;
+      config.userID = "微信用户" + this.data.wxuserInfo.nickName;
+      config.userSig = genTestUserSig(config.userID).userSig;
+      config.type = 2; // 视频聊天 参数2
+      config.tim = wx.$TUIKit;
+      //this.park_params.park_id = this.data.park_id;
+      this.setData({
+        config
+      }, () => {
+        this.TRTCCalling = this.selectComponent('#TRTCCalling-component');
+        this.TRTCCalling.init();
+      }, 400);
       /***** 
        * //this.config.tim == (privete) null
        * init() had included login(),addListen()
@@ -148,7 +148,7 @@ Page({
   },
   UserCancel(id) {
     wx.request({
-      url: 'http://lzypro.com:3000/call_reject',
+      url: app.globalData.request_remote + '/call_reject',
       method: 'PUT',
       data: {
         "account_id": id,
@@ -169,7 +169,7 @@ Page({
     let Parkparams = _this.Parkparams
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/call',
+        url: app.globalData.request_remote + '/call',
         method: 'PUT',
         data: {
           "park_id": park_id,
@@ -212,7 +212,7 @@ Page({
   },
   callingTimeoutEvent(id) {
     wx.request({
-      url: 'http://lzypro.com:3000/call_reject',
+      url: app.globalData.request_remote + '/call_reject',
       method: 'PUT',
       data: {
         "account_id": id,
@@ -226,7 +226,7 @@ Page({
   },
   userEnterEvent(id) {
     wx.request({
-      url: 'http://lzypro.com:3000/call_accept',
+      url: app.globalData.request_remote + '/call_accept',
       method: 'PUT',
       data: {
         "account_id": id,

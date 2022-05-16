@@ -57,6 +57,7 @@ App({
     headerHeight: 0,
     statusBarHeight: 0,
     SDKAppID: SDKAPPID,
+    request_remote: "http://10.0.2.2:3000",
   },
   onSDKReady() {
 

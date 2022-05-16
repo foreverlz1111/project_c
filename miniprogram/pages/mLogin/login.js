@@ -76,24 +76,24 @@ Page({
       }
     })
     */
-   /**********************【废弃】获取用户信息
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
-    }
-    *********************/
+    /**********************【废弃】获取用户信息
+     if (wx.getUserProfile) {
+       this.setData({
+         canIUseGetUserProfile: true
+       })
+     }
+     *********************/
     this.setData({
       park_id: option.park_id,
       road_id: option.road_id
     });
     wx.setStorage({
-      key:"park_id",
-      data:this.data.park_id
+      key: "park_id",
+      data: this.data.park_id
     });
     wx.setStorage({
-      key:"road_id",
-      data:this.data.road_id
+      key: "road_id",
+      data: this.data.road_id
     });
     this.get_park();
     setTimeout(() => {
@@ -102,46 +102,46 @@ Page({
       //this.test_reject()
     }, 1000);
   },
-  test_call(){
+  test_call() {
     let _this = this;
     let park_id = _this.data.park_id;
     let road_id = _this.data.road_id;
     wx.request({
-      url: 'http://lzypro.com:3000/call',
-      method:'PUT',
-      data:{
-        "park_id" :park_id,
-        "road_gate_id" : road_id,
+      url: app.globalData.request_remote + '/call',
+      method: 'PUT',
+      data: {
+        "park_id": park_id,
+        "road_gate_id": road_id,
       },
-      success(res){
+      success(res) {
         console.log(res.data)
       }
     })
   },
-  test_accpet(){
+  test_accpet() {
     let _this = this;
     let account_id = 2;
     wx.request({
-      url: 'http://lzypro.com:3000/call_accept',
-      method:'PUT',
-      data:{
-        "account_id":account_id
+      url: app.globalData.request_remote + '/call_accept',
+      method: 'PUT',
+      data: {
+        "account_id": account_id
       },
-      success(res){
+      success(res) {
         console.log(res.data)
       }
     })
   },
-  test_reject(){
+  test_reject() {
     let _this = this;
     let account_id = 2;
     wx.request({
-      url: 'http://lzypro.com:3000/call_accept',
-      method:'PUT',
-      data:{
-        "account_id":account_id
+      url: app.globalData.request_remote + '/call_accept',
+      method: 'PUT',
+      data: {
+        "account_id": account_id
       },
-      success(res){
+      success(res) {
         console.log(res.data)
       }
     })
@@ -156,7 +156,7 @@ Page({
       title: '加载中',
       success() {
         wx.request({
-          url: 'http://lzypro.com:3000/fetcher/' + park_id + '/' + road_id,
+          url: app.globalData.request_remote + '/fetcher/' + park_id + '/' + road_id,
           success(res) {
             if (res.statusCode == 200) {
               _info.forEach(element => {
@@ -193,7 +193,7 @@ Page({
   _check_server() {
     var _this = this;
     wx.request({
-      url: 'http://lzypro.com:3000/hello',
+      url: app.globalData.request_remote + '/hello',
       success(res) {
         console.log(res.data);
       },
@@ -212,7 +212,7 @@ Page({
     my_timestamp = my_timestamp / 1000;
     console.log(my_timestamp);
     wx.request({
-      url: 'http://lzypro.com:3000/time/'+my_timestamp,
+      url: app.globalData.request_remote+'/time/'+my_timestamp,
       method:'POST',
       data:{
         name:"Eva",

@@ -6,7 +6,7 @@ const TAG_NAME = 'TUICalling';
 // 组件设计思路将UI和状态管理分离。您可以通过修改`component`文件夹下的文件，适配您的业务场景，
 // 在UI展示上，您可以通过属性的方式，将上层的用户头像，名称等数据传入组件内部，`static`下的icon和默认头像图片，
 // 只是为了展示基础的效果，您需要根据业务场景进行修改。
-
+const app = getApp()
 // eslint-disable-next-line no-undef
 Component({
   properties: {
@@ -77,17 +77,17 @@ Component({
         callStatus: 'connection',
       });
       //2通话中
-        wx.request({
-          url: 'http://lzypro.com:3000/call_accept',
-          method: 'PUT',
-          data: {
-            "account_id": _this.data.accountID,
-            "remark": "通话已被接通"
-          },
-          success(res) {
-            console.log(res.data);
-          }
-        })
+      wx.request({
+        url: app.globalData.request_remote + '/call_accept',
+        method: 'PUT',
+        data: {
+          "account_id": _this.data.accountID,
+          "remark": "通话已被接通"
+        },
+        success(res) {
+          console.log(res.data);
+        }
+      })
     },
 
     // 远端用户进入通话
@@ -183,18 +183,18 @@ Component({
     handleCallingEnd(event) {
       //3已挂断
       let _this = this;
-      console.log("_this.data.isSponsor",_this.data.isSponsor);
-        wx.request({
-          url: 'http://lzypro.com:3000/call_reject',
-          method: 'PUT',
-          data: {
-            "account_id": _this.data.accountID,
-            "remark": "通话已挂断"
-          },
-          success(res) {
-            console.log(res.data);
-          }
-        });
+      console.log("_this.data.isSponsor", _this.data.isSponsor);
+      wx.request({
+        url: app.globalData.request_remote + '/call_reject',
+        method: 'PUT',
+        data: {
+          "account_id": _this.data.accountID,
+          "remark": "通话已挂断"
+        },
+        success(res) {
+          console.log(res.data);
+        }
+      });
       console.log(`${TAG_NAME}, handleCallingEnd`);
       console.log(event);
       this.reset();
@@ -208,7 +208,7 @@ Component({
         mask: true,
         duration: 1800,
       });
-      
+
     },
 
     // SDK Ready 回调

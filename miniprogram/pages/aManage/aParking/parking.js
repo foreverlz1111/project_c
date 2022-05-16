@@ -1,4 +1,5 @@
 // pages/aManage/aParking/parking.js
+const app = getApp()
 Page({
 
   /**
@@ -64,7 +65,7 @@ Page({
     })
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/open_change',
+        url: app.globalData.request_remote + '/open_change',
         method: "PUT",
         data: {
           "id": id,
@@ -92,7 +93,7 @@ Page({
     var _this = this
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/road/' + park,
+        url: app.globalData.request_remote + '/road/' + park,
         method: "GET",
         success(res) {
           if (res.statusCode == 200) {
@@ -140,7 +141,7 @@ Page({
     })
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/manages/open_gate',
+        url: app.globalData.request_remote + '/manages/open_gate',
         method: 'PUT',
         data: {
           id: id,
@@ -217,7 +218,7 @@ Page({
     })
     let promise = new Promise(function (s, e) {
       wx.request({
-        url: 'http://lzypro.com:3000/manages/open_gate',
+        url: app.globalData.request_remote + '/manages/open_gate',
         method: 'POST',
         data: {
           park_id: park_id,
@@ -267,7 +268,7 @@ Page({
     });
     let promise = new Promise(function (params) {
       wx.request({
-        url: 'http://lzypro.com:3000/manages/open_gate',
+        url: app.globalData.request_remote + '/manages/open_gate',
         method: 'DELETE',
         data: {
           park_id: park_id,

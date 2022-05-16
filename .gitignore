@@ -9,3 +9,4 @@ server/basic/database
 server/basic/sig/compute.go
 *.*~
 *.*#
+server/basic/tree.txt
