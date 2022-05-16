@@ -194,13 +194,13 @@ func Change_password(c *fiber.Ctx) error {
 	if err := c.BodyParser(temp); err != nil {
 		return c.Status(400).SendString("数据异常")
 	}
-	result := database.DB.Where("account = ? and password = ?",temp.Account,temp.Old_password).Find(&account_entity)
-	if result.RowsAffected > 0{
+	result := database.DB.Where("account = ? and password = ?", temp.Account, temp.Old_password).Find(&account_entity)
+	if result.RowsAffected > 0 {
 		log.Println(account_entity)
 		account_entity.Gmt_modified = time.Now()
 		account_entity.Password = temp.New_password
-		result = database.DB.Model(&account_entity).Where("account = ?",temp.Account).Select("password","gmt_modified").Updates(account_entity)
-		if result.RowsAffected > 0{
+		result = database.DB.Model(&account_entity).Where("account = ?", temp.Account).Select("password", "gmt_modified").Updates(account_entity)
+		if result.RowsAffected > 0 {
 			return c.Status(200).SendString("修改成功")
 		}
 		return c.Status(400).SendString("修改失败")

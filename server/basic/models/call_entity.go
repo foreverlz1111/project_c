@@ -1,8 +1,8 @@
 package models
 
 import (
-	"time"
 	"gorm-mysql/database"
+	"time"
 )
 
 type Call_entity struct {
@@ -22,7 +22,6 @@ type Call_entity struct {
 func (Call_entity) TableName() string {
 	return "call_entity"
 }
-func (call_entity *Call_entity)Get_call_entity(id int){
+func (call_entity *Call_entity) Get_call_entity(id int) {
 	database.DB.Where("status = 0 and id = ?", id).First(&call_entity)
 }
-

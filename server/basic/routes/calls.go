@@ -98,8 +98,8 @@ func Call_entity(c *fiber.Ctx) error {
 	park_id := c.Params("park_id")
 	account_id := c.Params("account_id")
 	call_entity := []models.Call_entity{}
-	database.DB.Where("park_id = ? and account_id = ? and status not in (-1)",park_id,account_id).Order("gmt_created desc").Limit(30).Find(&call_entity)
-	if len(call_entity) == 0{
+	database.DB.Where("park_id = ? and account_id = ? and status not in (-1)", park_id, account_id).Order("gmt_created desc").Limit(30).Find(&call_entity)
+	if len(call_entity) == 0 {
 		return c.Status(400).SendString("无记录！")
 	}
 	return c.Status(200).JSON(call_entity)

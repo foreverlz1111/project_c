@@ -1,11 +1,13 @@
 package models
-import(
-	"time"
-	"strconv"
-	"log"
+
+import (
 	"gorm-mysql/database"
+	"log"
+	"strconv"
 	"strings"
+	"time"
 )
+
 type Park_detail struct {
 	Id           int       `json:"id"`
 	Status       int       `json:"status"`
@@ -57,5 +59,5 @@ func (detail *Park_detail) Get_detail(park Park_entity) {
 	if region != "" {
 		detail.City += (region)
 	}
-	detail.City = strings.Replace(detail.City,"\n","",-1)
+	detail.City = strings.Replace(detail.City, "\n", "", -1)
 }
