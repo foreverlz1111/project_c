@@ -2,6 +2,7 @@ function count(params) {
   len = params.length;
   return len;
 }
+
 function subs(sub) {
   len = sub.length;
   //console.log("sub len " + len);
@@ -12,6 +13,7 @@ function subs(sub) {
     return sub.substring(0, 12) + "...";
   }
 }
+
 function subs_isLong(sub) {
   len = sub.length;
   //console.log("sub len " + len);
@@ -22,6 +24,7 @@ function subs_isLong(sub) {
     return true
   }
 }
+
 function timefmt(params) {
   // len = params.length;
   //params.substring(0,20);//去尾巴
@@ -65,8 +68,8 @@ function timefmt(params) {
 }
 
 module.exports = {
-  count:count,
+  count: count,
   subs: subs,
   timefmt: timefmt,
-  subs_isLong:subs_isLong
+  subs_isLong: subs_isLong
 }

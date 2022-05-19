@@ -1,4 +1,5 @@
 // pages/aManage/aPrivilege/privilege.js
+const app = getApp();
 Page({
 
   /**

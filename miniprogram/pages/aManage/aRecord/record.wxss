@@ -1,30 +1,33 @@
 /* pages/aManage/aRecord/record.wxss */
 
-.scroll{
+.scroll {
   margin-left: 1vh;
   margin-right: 1vh;
   width: auto;
   position: relative;
   height: 15vh;
-  margin-top:2vh;
+  margin-top: 2vh;
   border: 1px solid;
   border-radius: 8px;
   margin-bottom: 1vh;
 }
-.scroll label{
+
+.scroll label {
   margin-top: 1vh;
   margin-left: 1vh;
   display: flex;
 }
-.collect_form{
+
+.collect_form {
   width: auto;
   height: auto;
   border-bottom: 1px solid;
   border-radius: 2px;
-  margin:  1vh  ;
+  margin: 1vh;
 }
-.item{
-  margin-top:1vh;
+
+.item {
+  margin-top: 1vh;
   margin-bottom: 2vh;
   border: 1px solid;
   width: 98%;
@@ -33,7 +36,8 @@
   border-radius: 8px;
   position: relative;
 }
-.item image{
+
+.item image {
   height: 20px;
   width: 20px;
   float: right;
@@ -42,9 +46,10 @@
   position: relative;
   display: inline;
 }
-.item label{
+
+.item label {
   display: flex;
-  margin-top:1vh;
+  margin-top: 1vh;
   margin-left: 1vh;
   margin-bottom: 1vh;
 }

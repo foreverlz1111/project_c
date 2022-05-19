@@ -1,6 +1,6 @@
 /* pages/aManage/aIndex/index.wxss */
 
-.container{
+.container {
   padding: 20rpx 0;
   background: #000000;
   background-repeat: no-repeat;
@@ -13,36 +13,41 @@
   align-items: center;
   box-sizing: border-box;
 }
+
 .tip {
   position: relative;
   float: left;
   /* margin-right: 50%; */
 }
-.tip view{
+
+.tip view {
   margin-top: 1vh;
   float: left;
   margin-left: 2vh;
 }
-.tip label{
+
+.tip label {
   display: inline;
   color: white;
 }
 
 #borderline {
-  display:flex;
-  margin-top:2vh;
-  position:relative;
+  display: flex;
+  margin-top: 2vh;
+  position: relative;
   width: 100%;
   height: auto;
   background-color: #f7f7f7;
-  padding:1vh ;
+  padding: 1vh;
 
 }
+
 #boderline_text {
   font-size: 90%;
   display: inline;
   padding-left: 10px;
 }
+
 #borderline_image {
   height: 20px;
   width: 20px;
@@ -69,11 +74,13 @@
   margin-right: 5vh;
   margin-left: 5vh;
 }
+
 .class_text {
   margin-bottom: 20px;
   margin-top: 5px;
 }
-.exit_bnt{
+
+.exit_bnt {
   float: right;
   border-radius: 8px;
   box-sizing: border-box;

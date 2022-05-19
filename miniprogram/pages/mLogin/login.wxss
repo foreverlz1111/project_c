@@ -173,7 +173,7 @@
   position: fixed;
 }
 
-.box .list .refresh{
+.box .list .refresh {
   float: right;
   /* debug 
   border: 1px solid; */
@@ -182,7 +182,8 @@
   margin-bottom: 10px;
   position: relative;
 }
-.box .list .refresh image{
+
+.box .list .refresh image {
   /* 废弃
   background-color: aqua ; */
   display: block;

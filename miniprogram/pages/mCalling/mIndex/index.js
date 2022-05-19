@@ -56,13 +56,15 @@ Page({
       }, () => {
         this.TRTCCalling = this.selectComponent('#TRTCCalling-component');
         this.TRTCCalling.init();
-      }, 400);
+      }, 1000);
+      
       /***** 
        * //this.config.tim == (privete) null
        * init() had included login(),addListen()
        *****/
       // 
     });
+    
   },
   linkTo() {
     const url = 'https://www.aliyun.com'

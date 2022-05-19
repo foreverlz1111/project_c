@@ -16,7 +16,7 @@
   z-index: 6;
   background-color: white;
   border: 1px solid;
-  
+
   min-width: 35%;
   max-width: 65%;
   max-height: 35%;
@@ -39,51 +39,58 @@
 
 .picker_box {
   border-radius: 4px;
-  padding:3px;
-  margin:2vh 1vh 0 1vh;
+  padding: 3px;
+  margin: 2vh 1vh 0 1vh;
   flex-direction: column;
   position: relative;
   border: 1px solid;
 }
 
 .picker_box label {
-  
+
   display: inline-block;
   width: 40%;
 }
+
 .picker_box .picker_box_view {
   margin-left: 1vh;
   border: 1px solid;
-  min-width:20%;
+  min-width: 20%;
   max-width: auto;
   display: inline-block;
 }
+
 .picker_box .picker_box_radio {
   margin-left: 1vh;
-  min-width:20%;
+  min-width: 20%;
   max-width: auto;
   display: inline-block;
 }
-.picker_box .picker_box_view image{
+
+.picker_box .picker_box_view image {
   margin-left: 1vh;
   display: inline-block;
   width: 10px;
   height: 10px;
 }
-.control_bnt{
+
+.control_bnt {
   display: flex;
   flex-direction: row;
 }
-.control_bnt .confirm_bnt{
+
+.control_bnt .confirm_bnt {
   border-radius: 4px;
   margin: 2vh;
-  background-color:lavender;
+  background-color: lavender;
 }
-.control_bnt .cancel_bnt{
+
+.control_bnt .cancel_bnt {
   border-radius: 4px;
   margin: 2vh;
   background-color: whitesmoke;
 }
+
 .scroll {
   width: auto;
   margin-left: 1vh;
@@ -107,10 +114,11 @@
   margin: 1vh;
 }
 
-.add_bnt{
+.add_bnt {
   width: 30px;
   height: 30px;
 }
+
 .add_box {
   /* 上 右 下 左 */
   margin: 2vh 2vh 0 2vh;
@@ -123,11 +131,13 @@
   padding: 5px;
   border-radius: 6px;
 }
+
 .add_button {
   height: 22px;
   width: 22px;
   margin-left: 1vh;
 }
+
 .add_button_text {
   margin-left: 1vh;
 }
@@ -159,12 +169,14 @@
   margin-left: 1vh;
   margin-bottom: 1vh;
 }
+
 .item button {
   font-size: smaller;
   margin: 0 auto;
   width: 20%;
 }
-.item .alteration_text{
+
+.item .alteration_text {
   border-bottom: 1px solid;
   margin-left: 4px;
   border-radius: 4px;

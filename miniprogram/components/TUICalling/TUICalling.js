@@ -181,7 +181,7 @@ Component({
     },
     // 通话结束
     handleCallingEnd(event) {
-      //3已挂断
+      //3（对方）已挂断
       let _this = this;
       console.log("_this.data.isSponsor", _this.data.isSponsor);
       wx.request({
@@ -396,6 +396,19 @@ Component({
       console.log(`${TAG_NAME}, hangup`);
       wx.$TRTCCalling.hangup();
       this.reset();
+      //4挂断
+      let _this = this;
+      wx.request({
+        url: app.globalData.request_remote + '/call_reject',
+        method: 'PUT',
+        data: {
+          "account_id": _this.data.accountID,
+          "remark": "通话已挂断"
+        },
+        success(res) {
+          console.log(res.data);
+        }
+      });
     },
 
     //  切换大小屏 (仅支持1v1聊天)

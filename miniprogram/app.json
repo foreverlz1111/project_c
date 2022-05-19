@@ -1,5 +1,5 @@
 {
-  "pages": [    
+  "pages": [
     "pages/aLogin/login",
     "pages/aManage/aIndex/index",
     "pages/aManage/aPrivilege/privilege",

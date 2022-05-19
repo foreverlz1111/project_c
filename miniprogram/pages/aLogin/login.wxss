@@ -1,6 +1,6 @@
 /* pages/aLogin/login.wxss */
 
-.container{
+.container {
   padding: 20rpx 0;
   background: #000000;
   background-repeat: no-repeat;
@@ -13,17 +13,19 @@
   align-items: center;
   box-sizing: border-box;
 }
-.form-box{
-  
+
+.form-box {
+
   background-color: white;
   border-radius: 8px;
   width: 80%;
   height: 60vh;
-  margin-top:20vh;
+  margin-top: 20vh;
   border: 0.5px solid;
   padding: 0;
-  box-shadow: 5px,5px,5px,gainsboro;
+  box-shadow: 5px, 5px, 5px, gainsboro;
 }
+
 #barner {
   position: relative;
   display: flex;
@@ -63,10 +65,12 @@
   /* float: left; */
   background-color: white;
 }
-.submit_button image{
-    width: 50px;
-    height: 50px
+
+.submit_button image {
+  width: 50px;
+  height: 50px
 }
+
 /*
 #reset_button{
   float: right;
@@ -80,4 +84,3 @@
   width: 50px;
   height: 50px;
 }*/
-
